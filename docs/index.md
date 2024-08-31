@@ -16,7 +16,7 @@ Bienvenue dans cette documentation pédagogique générée automatiquement à l'
 
 Cette documentation est automatiquement mise en ligne grâce à GitHub Pages, une fonctionnalité de GitHub qui permet de publier facilement du contenu statique. Chaque fois que des modifications sont apportées à la documentation et poussées vers la branche principale du référentiel (main), les GitHub Actions sont déclenchées pour générer et déployer automatiquement les changements sur la page de documentation.
 
-Vous pouvez accéder à la documentation en ligne à l'adresse suivante : [Lien vers la documentation](https://squidfunk.github.io/mkdocs-material/publishing-your-site/){:target="_blank"}
+Vous pouvez accéder à la documentation en ligne à l'adresse suivante : [Lien vers la documentation](https://squidfunk.github.io/mkdocs-material/publishing-your-site/)
 
 N'hésitez pas à explorer les différentes sections et à profiter de cette ressource pour enrichir votre compréhension des sujets abordés.
 
