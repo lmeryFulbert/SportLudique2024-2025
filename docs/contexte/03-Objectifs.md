@@ -8,7 +8,7 @@ globales de l’entreprise.
 
 Après concertation des différents acteurs du SI de l’entreprise, et de
 multiples réunions de travail, le comité de direction a dressé pour
-l’année **2023-2024**, quatre grands axes de travail. Ces axes, qui
+l’année **2024-2025**, quatre grands axes de travail. Ces axes, qui
 définissent en fait quatre objectifs stratégiques, concernent tous les
 services de l’entreprise, mais s’adressent tout particulièrement à la
 DSI.
