@@ -15,16 +15,26 @@ theme:
       toggle:
         icon: 'material/brightness-7'
         name: 'Switch to dark mode'
-  #features:
+  features:
+     - content.code.copy
   #  - navigation.tabs
   #  - navigation.top
+copyright: Copyright &copy; 2024-2025 MERY Ludovic - Lycée Fulbert - Chartres
+
 markdown_extensions:
   - attr_list
   - md_in_html
   - admonition
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
   - pymdownx.tabbed:
       alternate_style: true
+  
 #plugins:
 #  - social
