@@ -9,6 +9,15 @@ Le **VLSM (Variable Length Subnet Mask)** est une technique d'adressage IP qui p
 -    Flexibilité : Permet de créer des sous-réseaux de différentes tailles à partir du même espace d'adressage.
 -    Scalabilité : Facilite l'extension du réseau en créant de nouveaux sous-réseaux selon les besoins.
 
+??? info "Attention"
+    **VLSM** est une technique d'optimisation pour l'adressage utile dans des plages d'adresse publiques. Dans un contexte d'adresse privées (**RFC1918**), cela a nettement moins d'interet.
+
+??? info "RFC 1918"
+    Les plages d'adresses privées définies dans cette RFC interdisent leur routage sur Internet. On a :</br>
+    -    10.0.0.0 /8  </br>
+    -    172.16.0.0 /12 </br>
+    -    192.168.0.0 /16 </br>
+
 ### Principe de fonctionnement
 
 -    Détermination des besoins en sous-réseaux : Identifiez le nombre de sous-réseaux et le nombre d'hôtes requis pour chaque sous-réseau.
