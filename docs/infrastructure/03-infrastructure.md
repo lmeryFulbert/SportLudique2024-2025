@@ -18,12 +18,10 @@ pour l’apprentissage et la connectivité au domaine **lan.sio.lyceefulbert.fr*
 ### Etape préalable pour travailler sur le contexte SportLudique
 
 Le VLAN 200 est le VLAN Labo pour toute la promotion des deuxièmes
-années SISR. Le VLAN 210 est le VLAN Labo de l’ îlot 1. Le 220 celui de
+années SISR. Le VLAN 210 est le VLAN Labo de l’îlot 1. Le 220 celui de
 l’ îlot 2 etc…
 
-![switch HP](../medias/infrastructure/huawei.png)
-
-Chaque site **Chartres**, **Tours**, **Orléans** et **Châteauroux** correspond à un îlot
+Chaque site **Chartres**, **Tours**, **Orléans** et **Bourges** correspond à un îlot
 et possède donc son propre VLAN isolé du reste du réseau du Labo du
 lycée Fulbert.
 
@@ -65,7 +63,7 @@ Les capacités physiques des serveurs qui hébergent vos machines virtuelles ne 
 | Switch / Routeurs      | admin / P@ssw0rd123456!              |
 | Mode privilégié (enable)| P@ssw0rd123456!                       |
 
-**prefix** correspond à **TRS**, **CHX**, **CHA**, **ORL** respectivement pour Tours, Chateauroux, Chartres et Orléans 
+**prefix** correspond à **TRS**, **CHX**, **CHA**, **ORL** respectivement pour Tours, Bourges, Chartres et Orléans 
 
 Il vous sera demandé de créer d'autres comptes plus personnalisés, qui seront par ailleurs gérés par un bastion d'accès. Ces comptes vous offriront un moyen d'accéder à votre infrastructure en cas de panne générale, ce qui les rend similaires à des portes dérobées indispensables pour vos activités d'apprentissage. 
 
@@ -195,7 +193,7 @@ GTR 4heures pour l’abonnement principal Fibre et un contrat bas débit
 ASDL GTR 48Heures pour l’abonnement de secours.
 
 
-|             |    **idVLAN**       | **Chartres**      | **Tours**        | **Orléans**      | **Chateauroux**  |
+|             |    **idVLAN**       | **Chartres**      | **Tours**        | **Orléans**      | **Bourges**  |
 |------------|------------|-------------------|------------------|------------------|------------------|
 | Abonnement **FIBRE** :| 200  | 183.44.28.2 /30  | 183.44.37.2 /30 | 183.44.45.2 /30 | 183.44.18.2 /30 |
 | Abonnement **ADSL** : | 100    | 221.87.128.1 /30   | 221.87.137.1 /30  | 221.87.145.1 /30  | 221.87.118.1 /30  |
