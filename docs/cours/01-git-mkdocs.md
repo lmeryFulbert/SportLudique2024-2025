@@ -32,7 +32,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
     cd mon-projet-mkdocs
     ```
 
-## 2.bis ## 10. Configuration du compte GitHub pour le dépôt local
+## 2.bis Configuration du compte GitHub pour le dépôt local
 
 Avant de commencer à travailler avec Git et GitHub sur votre dépôt local, vous devez configurer votre compte GitHub pour que vos commits soient associés à votre profil.
 
