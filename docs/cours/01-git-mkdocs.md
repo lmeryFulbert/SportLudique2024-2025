@@ -32,6 +32,66 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
     cd mon-projet-mkdocs
     ```
 
+## 2.bis ## 10. Configuration du compte GitHub pour le dépôt local
+
+Avant de commencer à travailler avec Git et GitHub sur votre dépôt local, vous devez configurer votre compte GitHub pour que vos commits soient associés à votre profil.
+
+### 1. Configurer votre nom d'utilisateur et votre adresse e-mail
+
+1. **Ouvrez un terminal** sur votre machine.
+2. **Définissez votre nom d'utilisateur** :
+
+    ```bash
+    git config --global user.name "Votre Nom d'utilisateur GitHub"
+    ```
+
+3. **Définissez votre adresse e-mail** (cette adresse doit être la même que celle utilisée sur GitHub) :
+
+    ```bash
+    git config --global user.email "votre-email@example.com"
+    ```
+
+### 2. Vérifier la configuration
+
+1. Pour vérifier que votre configuration a bien été prise en compte, utilisez la commande suivante :
+
+    ```bash
+    git config --global --list
+    ```
+
+    Vous devriez voir votre nom d'utilisateur et votre adresse e-mail listés.
+
+### 3. Configurer l'authentification par clé SSH (optionnel)
+
+Pour faciliter l'authentification et éviter de saisir vos identifiants à chaque push, vous pouvez configurer une clé SSH :
+
+1. **Générer une clé SSH** :
+
+    ```bash
+    ssh-keygen -t ed25519 -C "votre-email@example.com"
+    ```
+
+    Appuyez sur `Entrée` pour accepter l'emplacement par défaut du fichier. Vous pouvez aussi définir une phrase de passe pour sécuriser votre clé.
+
+2. **Ajouter la clé SSH à votre compte GitHub** :
+   - Copiez la clé publique générée :
+
+    ```bash
+    cat ~/.ssh/id_ed25519.pub
+    ```
+
+   - Connectez-vous à GitHub, allez dans **Settings** > **SSH and GPG keys**, puis cliquez sur **New SSH key**. Collez la clé dans le champ prévu à cet effet et donnez-lui un nom.
+
+3. **Tester la connexion** :
+
+    ```bash
+    ssh -T git@github.com
+    ```
+
+    Si tout est bien configuré, vous recevrez un message de confirmation de la connexion.
+
+---
+
 ## 3. Initialisation de MkDocs
 
 1. Dans votre terminal, assurez-vous d'être dans le répertoire de votre projet :
