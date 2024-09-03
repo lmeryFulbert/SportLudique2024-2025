@@ -13,7 +13,7 @@ Les prises impaires respectivement (1,3,5,7) ne doivent pas être deconnectés d
 (1, 3, 5, 7) dans le vlan 117. On vous demande de ne pas modifier ces ports afin de revenir facilement dans une configuration classique
 pour l’apprentissage et la connectivité au domaine **lan.sio.lyceefulbert.fr**
 
-![switch HP](../medias/infrastructure/Switch_HP_baies2023_baie_x.png)
+![switch HP](../medias/infrastructure/huawei.png)
 
 ### Etape préalable pour travailler sur le contexte SportLudique
 
@@ -21,7 +21,7 @@ Le VLAN 200 est le VLAN Labo pour toute la promotion des deuxièmes
 années SISR. Le VLAN 210 est le VLAN Labo de l’ îlot 1. Le 220 celui de
 l’ îlot 2 etc…
 
-![switch HP](../medias/infrastructure/Switch_HP_baies2023_baie_x2.png)
+![switch HP](../medias/infrastructure/huawei.png)
 
 Chaque site **Chartres**, **Tours**, **Orléans** et **Châteauroux** correspond à un îlot
 et possède donc son propre VLAN isolé du reste du réseau du Labo du
@@ -197,8 +197,8 @@ ASDL GTR 48Heures pour l’abonnement de secours.
 
 |             |    **idVLAN**       | **Chartres**      | **Tours**        | **Orléans**      | **Chateauroux**  |
 |------------|------------|-------------------|------------------|------------------|------------------|
-| Abonnement **FIBRE** :| 200  | 183.44.28.2 /30  | 183.44.37.2 /30 | 183.44.45.2 /30 | 183.44.36.2 /30 |
-| Abonnement **ADSL** : | 100    | 221.87.128.1 /30   | 221.87.137.1 /30  | 221.87.145.1 /30  | 221.87.136.1 /30  |
+| Abonnement **FIBRE** :| 200  | 183.44.28.2 /30  | 183.44.37.2 /30 | 183.44.45.2 /30 | 183.44.18.2 /30 |
+| Abonnement **ADSL** : | 100    | 221.87.128.1 /30   | 221.87.137.1 /30  | 221.87.145.1 /30  | 221.87.118.1 /30  |
 
 
 ### Accès Internet et DMZ
