@@ -192,6 +192,9 @@ SFR qui délivrent un contrat de service Pro Fibre 100Mb/s avec une SLA
 GTR 4heures pour l’abonnement principal Fibre et un contrat bas débit
 ASDL GTR 48Heures pour l’abonnement de secours.
 
+**Attention**
+Les Adresses IP suivantes correspondent aux passerelles (Gateway) fournies par les opérateurs. **C'est à vous de trouver l'IP publiques correspondante à définir sur votre équipement (Voir schema réseau sur la page Annexes)**
+
 
 |             |    **idVLAN**       | **Chartres**      | **Tours**        | **Orléans**      | **Bourges**  |
 |------------|------------|-------------------|------------------|------------------|------------------|
