@@ -17,7 +17,7 @@ conformité avec le référentiel.
 ## Rappel du contexte :
 
 *SportLudique* est une société basée sur 4 sites distants **Chartres**,
-**Tours**, **Orléans** et **Châteauroux**. Elle est spécialisée dans la conception
+**Tours**, **Orléans** et **Bourges**. Elle est spécialisée dans la conception
 et la production d’articles de sports non conventionnels.
 
 L’infrastructure informatique et réseau est prise en charge par le

@@ -45,7 +45,7 @@ Ayant accès à l'ensemble des VM (y compris celle de l'infrastructure du BTS) m
 | Chartres         | CHA |
 | Tours           | TRS |
 | Orléans         | ORL |
-| Châteauroux     | CHX |
+| Bourges     | BRG |
 
 ### Configuration materielle géré par l'hyperviseur
 

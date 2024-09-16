@@ -89,11 +89,11 @@
 
 | **Nom**        | **Fonction**                               | **OS**                    |
 |----------------|--------------------------------------------|--------------------------|
-| **CHX_DC_01**  | Contrôleur principal de domaine            | Windows server 2008 R2   |
+| **BRG_DC_01**  | Contrôleur principal de domaine            | Windows server 2008 R2   |
 |                | Serveur primaire DNS                       | Domaine : Bourges.local |
 |                | Serveur DHCP                               |                          |
 |                | Serveur de fichiers                        |                          |
-| **CHX_DC_02**  | Contrôleur secondaire de domaine           | Windows server 2008 R2   |
+| **BRG_DC_02**  | Contrôleur secondaire de domaine           | Windows server 2008 R2   |
 |                | Serveur secondaire DNS                     |                          |
 |                | Serveur de fichiers repliqué               |                          |
 | **…**          | …                                          | …                        |
