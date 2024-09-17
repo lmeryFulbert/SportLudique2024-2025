@@ -1,4 +1,4 @@
-# 04-FailOver avec le Protocole HSRP
+# 05-FailOver avec le Protocole HSRP
 
 Le protocole **HSRP** (Hot Standby Router Protocol) est un protocole de Cisco conçu pour fournir une **haute disponibilité** (HA) aux réseaux en permettant à un routeur de prendre automatiquement le relais en cas de panne du routeur principal. HSRP est souvent utilisé pour créer une passerelle par défaut redondante vers l'Internet ou d'autres réseaux.
 

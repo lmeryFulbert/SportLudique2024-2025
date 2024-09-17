@@ -1,4 +1,4 @@
-# VLSM (Variable Length Subnet Mask)
+# 02-VLSM (Variable Length Subnet Mask)
 ## Introduction
 
 Le **VLSM (Variable Length Subnet Mask)** est une technique d'adressage IP qui permet de subdiviser un réseau en sous-réseaux de tailles différentes, en fonction des besoins. Contrairement à la technique classique des sous réseaux - **FLSM (Fixed Length Subnet Mask)**, où tous les sous-réseaux ont la même taille, le VLSM permet une utilisation plus efficace de l'espace d'adressage.

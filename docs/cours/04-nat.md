@@ -1,4 +1,4 @@
-# 03-NAT Dynamique (Masquerade) version Cisco
+# 04-NAT Dynamique (Masquerade) version Cisco
 
 Le NAT dynamique est une technique utilisée pour permettre à plusieurs dispositifs d'une réseau local (IP inside) de partager une seule adresse IP publique (IP outside) pour accéder à Internet ou d'autres réseaux externes.
 

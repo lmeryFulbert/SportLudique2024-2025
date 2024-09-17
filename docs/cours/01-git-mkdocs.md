@@ -1,4 +1,4 @@
-# Utilisation de git et de mkdocs
+# 01-Utilisation de git et de mkdocs
 
 ## Prérequis
 Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
