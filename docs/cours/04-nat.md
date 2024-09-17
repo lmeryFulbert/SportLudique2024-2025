@@ -97,7 +97,6 @@ interface GigabitEthernet0/1
  switchport mode trunk
  switchport trunk allowed vlan 10,20
  ```
-
 Dans cette configuration :
 
 - switchport mode trunk configure le port du commutateur en mode trunk.
