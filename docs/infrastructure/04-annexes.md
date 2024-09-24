@@ -1,10 +1,20 @@
 # Annexes
 
-## Annexe 1 - Schéma de l’infrastructure de chaque site géographique
+## Annexe 1 - Schéma logique minimal l’infrastructure de chaque site géographique
 
-![infra](../medias/infrastructure/image3.png)
+![infra](../medias/infrastructure/logique_minimum.png)
 
-## Annexe 2 - Plan d'adressage IP
+## Annexe 2 - Schéma logique du réseau de management
+
+![infra](../medias/infrastructure/management_logique.png)
+
+## Annexe 3 - Schéma physique l’infrastructure
+
+![infra](../medias/infrastructure/physique_minimum.png)
+
+Les ports sont evidement à choisir par les étudiants
+
+## Annexe 4 - Plan d'adressage IP
 
 |                                | **Site de**      |                 |                 |                 |
 |--------------------------------|------------------|-----------------|-----------------|-----------------|
@@ -51,7 +61,7 @@
 | **Passerelle**            |                |                |                |                |
 
 
-## Annexe 2 bis - Plan d'adressage IP des serveurs (suite)
+## Annexe 5 - Plan d'adressage IP des serveurs (suite)
 
 |                                    | **Site de**   |               |               |               |               |               |               |               |       |
 |------------------------------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|---------------|-------|
@@ -83,7 +93,7 @@
 |                    |                    |                         |                             |                             |                |          |              |       |
 
 
-## Annexe 3 - Plan de brassage. 
+## Annexe 6 - Plan de brassage. 
 
 | **SW1 2960-24** | **Ports** | **VLAN** | **SW1 2960-24** | **Ports** | **VLAN** |
 |-----------------|-----------|---------|----------------|----------|---------|
@@ -114,7 +124,7 @@
 |                 | Gi0/2     |         |                | Gi0/2    |         |
 
 
-## Annexe 4 - Identifiants & mots de passe 
+## Annexe 7 - Identifiants & mots de passe 
 
 **Tables des noms DNS**
 
@@ -131,11 +141,11 @@
 |          |          |
 |          |          |
 
-## Annexe 5 - Infrastructure Publique simulée dans le labo du lycée Fulbert
+## Annexe 8 - Infrastructure Publique simulée dans le labo du lycée Fulbert
 
 ![switch HP](../medias/infrastructure/image4.png)
 
-##  Annexe 5 bis
+##  Annexe 9
 
 ### Adressage IP publique des sites
 
@@ -171,7 +181,7 @@
 
 
 
-## Annexe 6
+## Annexe 10
 
 **Les équipements de réseau**
 
