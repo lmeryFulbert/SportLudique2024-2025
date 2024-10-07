@@ -1,4 +1,4 @@
-# 02-DNS (Domain Name System) 
+# DNS (Domain Name System) 
 
 ## Introduction aux DNS
 
