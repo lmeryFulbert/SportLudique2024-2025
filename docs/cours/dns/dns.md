@@ -106,7 +106,7 @@ Voici un exemple simplifié :
 
 ```shell
 view "interne" {
-    match-clients { localhost; 192.168.1.0/24; };
+    match-clients { localhost; 192.168.0.0/24; };
     zone "exemple.com" {
         type master;
         file "/etc/bind/db.interne";
@@ -158,9 +158,20 @@ Dans cet exemple, les utilisateurs provenant du réseau local (192.168.1.0/24) v
     };
 ```
 
+#### Fichier /etc/bind/named.conf.local   (du resolver)
+```shell
+zone "ville.sportludique.fr" {
+    type stub;
+    masters { 192.168.x.x; };  // Remplace par l'IP du serveur DNS ayant autorité sur la zone (dans la DMZ)
+    file "stub/ville.sportludique.fr";  // Fichier local pour stocker les informations et optimiser les perf (mise en cache)
+};
+```
+
 ### Serveur DNS ayant autorité sur la zone ville.sportludique.fr
 
 #### Fichier /etc/bind/named.conf.local
+
+Il faut choisir la bonne zone en fonction des IP sources via des ACL
 
 ```shell
     
@@ -195,7 +206,7 @@ Dans cet exemple, les utilisateurs provenant du réseau local (192.168.1.0/24) v
 ```
 
 ??? info "Attention"
-    Toutes les lignes du fichier `named.conf.default-zones` doivent être mises `en commentaire` car ne elles ne sont associées à aucune vue. 
+    Toutes les lignes du fichier `named.conf.default-zones` doivent être mises `en commentaire` car ne elles ne sont associées à aucune vue.
 
 
 
