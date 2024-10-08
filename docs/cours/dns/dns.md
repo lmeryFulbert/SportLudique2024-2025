@@ -96,6 +96,8 @@ En conclusion, le DNS est un système fondamental pour le fonctionnement d'Inter
 
 ![](../../medias/cours/dns/dns.png)
 
+![](../../medias/cours/dns/gestion_dns.png)
+
 ## DNS Partagé (Split-Horizon DNS) :
 
 Le DNS partagé, également appelé DNS split-horizon, implique d'avoir des vues différentes de l'espace de noms DNS pour les utilisateurs internes et externes. Cela est souvent utilisé pour fournir des réponses DNS différentes en fonction de la provenance de la requête DNS, c'est-à-dire si la requête provient de l'intérieur ou de l'extérieur du réseau local. Pour mettre en œuvre le DNS partagé avec BIND9, vous configurez généralement des vues distinctes dans le fichier de configuration BIND.
