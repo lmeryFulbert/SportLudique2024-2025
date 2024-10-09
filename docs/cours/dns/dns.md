@@ -144,12 +144,6 @@ Dans cet exemple, les utilisateurs provenant du réseau local (192.168.1.0/24) v
                 192.168.x.0/24;    //DMZ
             };
 
-            //Configuration du redirecteur
-            //Le domaine sportludique n'étant pas acheté reelement ,il faut interroger le redirecteur quand le domaine n'est pas trouvé sur les serveur racine
-            forwarders {
-                    121.183.90.205;     //IP resolver enseignant
-            };
-
             //Desactivation de DNSSec
             dnssec-validation no;
 
@@ -159,13 +153,27 @@ Dans cet exemple, les utilisateurs provenant du réseau local (192.168.1.0/24) v
 ```
 
 #### Fichier /etc/bind/named.conf.local   (du resolver)
+
+Les requetes à destination de la zone locale doivent être redirigées vers le serveur DNS de la DMZ en interogeant la vue interne.
+
 ```shell
 zone "ville.sportludique.fr" {
-    type stub;
-    masters { 192.168.x.x; };  // Remplace par l'IP du serveur DNS ayant autorité sur la zone (dans la DMZ)
-    file "stub/ville.sportludique.fr";  // Fichier local pour stocker les informations et optimiser les perf (mise en cache)
+    type forward;
+    forwarders { 192.168.x.y };  // Remplace par l'IP du serveur DNS ayant autorité sur la zone (dans la DMZ)
 };
 ```
+
+Les requetes à destination de la zone de l'entreprise (sportludique.fr) doivent partir vers le serveur resolver de l'enseignant gérant cette zone.
+
+```shell
+zone "sportludique.fr" {
+    type forward;
+    forwarders { 121.183.90.205; };  // IP du serveur de l'enseignant ayant autorité sur la zone sportludique.fr
+};
+```
+
+Toutes les autres requetes sont recursives et interrogent donc les serveurs racines (connu de Bind).
+Cela permet d'éviter une potentielle censure en utilisant le serveur DNS d'un Opérateur (celui du prof :-) )
 
 ### Serveur DNS ayant autorité sur la zone ville.sportludique.fr
 
@@ -196,7 +204,7 @@ Il faut choisir la bonne zone en fonction des IP sources via des ACL
             192.168.x.0/24;    //requète provenant de la DMZ
         };
 
-        zone "chartres.sportludique.fr." {
+        zone "ville.sportludique.fr." {
             type master;
             file "/etc/bind/db.ville.sp.fr.interne";
         };
