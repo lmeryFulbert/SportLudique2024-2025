@@ -106,7 +106,7 @@ Voici un exemple simplifié :
 
 ```shell
 view "interne" {
-    match-clients { localhost; 192.168.0.0/24; };
+    match-clients { localhost; 172.16.x.0/24; };
     zone "exemple.com" {
         type master;
         file "/etc/bind/db.interne";
@@ -122,7 +122,7 @@ view "externe" {
 };
 ```
 
-Dans cet exemple, les utilisateurs provenant du réseau local (192.168.1.0/24) verront une vue DNS définie par le fichier /etc/bind/db.interne, tandis que les utilisateurs externes verront une vue définie par le fichier /etc/bind/db.externe.
+Dans cet exemple, les utilisateurs provenant du réseau local (172.16.x.0/24) verront une vue DNS définie par le fichier /etc/bind/db.interne, tandis que les utilisateurs externes verront une vue définie par le fichier /etc/bind/db.externe.
 
 ## Exemple de configuration
 
@@ -139,7 +139,7 @@ Dans cet exemple, les utilisateurs provenant du réseau local (192.168.1.0/24) v
             //Liste des réseaux autorisés à interoger le resolver
             //Par defaut seul les équipements du meme réseau IP que le serveur peuvent l'interroger.
             allow-query { 
-                172.x.0.0/24;       //LAN
+                172.16.x.0/24;       //LAN
                 127.0.0.1;          //LOCALHOST
                 192.168.x.0/24;    //DMZ
             };
