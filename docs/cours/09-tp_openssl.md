@@ -283,7 +283,7 @@ La demande de certificat est généré avec openssl via la commande
 suivante :
 
 ```bash
-openssl req -new -key **siteweb/keys/privatekey.key** \>
+openssl req -new -key siteweb/keys/privatekey.key \>
 **siteweb/requests_certificats/demande.csr**
 ```
 
@@ -330,8 +330,8 @@ certificat auto-signé.
 comme précédemment :
 
 ```bash
-openssl genrsa -des3 2048 \> **\<a vous de préciser le chemin, soyez
-    cohérent SVP\> / private_ca.key**
+openssl genrsa -des3 2048 \> \<a vous de préciser le chemin, soyez
+    cohérent SVP\> / private_ca.key
 ```
 
 Attention ne pas mélanger le fichier correspondant à notre serveur et
@@ -345,12 +345,13 @@ pas. Noter le ici : \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 durée de validité d\'un an auto-signé :
 
 ```bash
-openssl req -new -x509 -days 365 -key **private_ca.key** \>
+openssl req -new -x509 -days 365 -key private_ca.key \>
     autorite/certificats/ca.crt
 ```
 
-**Attention il faut mettre les bons chemins des différents fichiers !!!!
-Utilisez la tabulation pour éviter les erreurs de saisie.**
+??? Warning "Attention"
+    Attention il faut mettre les bons chemins des différents fichiers !!!!
+    Utilisez la tabulation pour éviter les erreurs de saisie.
 
 Soyez imaginatif dans la saisie des informations concernant l'autorité.
 Elles doivent être différentes des informations saisies précédemment
@@ -360,6 +361,7 @@ certification qui est fictive.
 8.  Quel passphrase est attendu ? Pourquoi ?
 
 ## Traitement de la demande de certificat de notre serveur par l\'autorité de certification fictive
+
 9.  Taper openssl x509 -help pour obtenir l'aide :
 
 La demande de certificat à signer est le fichier
@@ -405,8 +407,7 @@ plus courant pour
 certificats, CSRs et les clés cryptographiques. Un fichier PEM est un
 fichier texte contenant un ou plusieurs éléments en codage ASCII Base64,
 chacun avec des en-têtes et pieds de page en texte brut (par exemple
-\-\-\-\--BEGIN CERTIFICATE\-\-\-\-- et \-\-\-\--END
-CERTIFICATE\-\-\-\--). Un seul fichier PEM peut contenir un certificat
+````-----BEGIN CERTIFICATE\-----```` et ````-----END CERTIFICATE-----````). Un seul fichier PEM peut contenir un certificat
 d\'entité finale, une clé privée ou plusieurs certificats formant une
 chaîne de confiance complète
 
