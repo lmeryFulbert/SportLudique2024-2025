@@ -271,7 +271,7 @@ Source : <https://www.keylength.com/fr/5/>
 ### Génération de la clé privée du serveur web
 
 ```bash
-openssl genrsa 2048 \> siteweb/keys/privatekey.key
+openssl genrsa 2048 > siteweb/keys/privatekey.key
 ```
 
 4.  Vérifier le contenu du fichier généré avec la commande cat.
@@ -282,7 +282,7 @@ La demande de certificat est généré avec openssl via la commande
 suivante :
 
 ```bash
-openssl req -new -key siteweb/keys/privatekey.key \> siteweb/requests_certificats/demande.csr
+openssl req -new -key siteweb/keys/privatekey.key > siteweb/requests_certificats/demande.csr
 ```
 
 Le système va vous demander de saisir des champs ; remplissez-les en
@@ -328,7 +328,7 @@ certificat auto-signé.
 comme précédemment :
 
 ```bash
-openssl genrsa -des3 2048 > <a vous de préciser le chemin, soyez cohérent SVP> /private_ca.key
+openssl genrsa -des3 2048 > [a vous de préciser le chemin, soyez cohérent SVP] private_ca.key
 ```
 
 Attention ne pas mélanger le fichier correspondant à notre serveur et
@@ -366,7 +366,7 @@ La demande de certificat à signer est le fichier
 10. La commande qui signe la demande de certificat est la suivante :
 
 ```bash
-openssl x509 -req -in \[te_plante_pas\].csr -out \[a_adapter\].crt -CA \[certif_autorite\].crt -CAkey \[privatekey_ca\].key -CAcreateserial -CAserial ca.srl
+openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl
 ```
 
 Le certificat signé par l\'autorité de certification est le fichier
