@@ -446,7 +446,7 @@ La demande de certificat à signer est le fichier
     ```
 
 !!! danger "Important"
-    Noter bien **-extfile openssl.cnf -extensions v3_req** a la fin de la demande de signature qui impose donc l'usage des options gérant les champs SAN. Il faut evidement le bon chemin. On peut imaginer un fichier de donc d'openssl par siteweb souhaité. A vous de vous adapter.
+    Noter bien **-extfile openssl.cnf -extensions v3_req** a la fin de la demande de signature qui impose donc l'usage des options gérant les champs SAN. Il faut evidement le bon chemin. On peut imaginer un fichier de conf d'openssl par siteweb souhaité. A vous de vous adapter.
 
  
 
@@ -465,7 +465,7 @@ Le certificat signé par l'autorité de certification est le fichier
  └── requests_certificats
 ```
 
-12. Vérifier son contenu avec la commande approprié :
+12. Vérifier son contenu avec la commande appropriée:
 
 ```bash
     openssl x509 -in siteweb/certificats/siteweb.crt -noout -text
@@ -564,3 +564,6 @@ autorité de confiance.
 ![](../medias/cours/openssl/facebook-fake.png)
 
 ![](../medias/cours/openssl/certificats-fake.png)
+
+!!! danger "Remarque"
+    Prenez bien en compte la présence du champ **Subject Alernative Names** nommé en français **Noms alternatifs du sujet** dans Firefox.
