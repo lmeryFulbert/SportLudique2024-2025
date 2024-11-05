@@ -54,7 +54,7 @@ Un protocole sécurisé fonctionne sur un port différent de son homologue non s
 
 
 
-### Différence entre SSL et TLS {#différence-entre-ssl-et-tls .unnumbered}
+### Différence entre SSL et TLS
 
 Le **SSL** a été introduit en 1995. Après la découverte d'une série de
 lourdes failles de sécurité, la version 2.0 améliorée a ensuite vu le
@@ -85,12 +85,12 @@ de logiciels utilisent le terme SSL ou le double terme SSL/TLS alors
 qu'ils entendent généralement la version actuelle de TLS, à savoir TLS
 1.3.
 
-### Recommandations officielles de la CNIL {#recommandations-officielles-de-la-cnil .unnumbered}
+### Recommandations officielles de la CNIL
 
 Tout site web doit garantir son identité et la confidentialité des
 informations transmises.
 
-#### Les précautions élémentaires {#les-précautions-élémentaires .unnumbered}
+#### Les précautions élémentaires
 
 -   **Mettre en œuvre le protocole TLS** (en remplacement de SSL) sur
     tous les sites web, en utilisant uniquement les versions les plus
@@ -184,8 +184,7 @@ certificats reconnus comme de confiance par les navigateurs. Cela rend
 les attaques de **phishing** plus performantes.
 
 ![Le typosquatting, c\'est quoi ? \| DBM
-Technologies](../medias/cours/openssl/image3.png){width="4.411042213473316in"
-height="1.0273950131233596in"}
+Technologies](../medias/cours/openssl/image3.png)
 
 Le fameux cadenas vert du navigateur a d'ailleurs disparu pour cette
 raison, le cadenas n'est pas le signe que l'on peut faire confiance au
