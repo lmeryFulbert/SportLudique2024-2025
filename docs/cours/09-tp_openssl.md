@@ -226,8 +226,7 @@ télécharger une version compilée pour windows 64 bits ou de le compiler
 soit même comme un grand.
 
 Pour installer openssl, rien de plus simple avec les gestionnaires de
-paquet, mais il est probable qu'il soit déjà installé. apt-get install
-openssl.
+paquet, mais il est probable qu'il soit déjà installé. ````apt-get install openssl````
 
 PS : à vous de savoir quand il faut préfixer une commande par sudo
 désormais.
@@ -283,8 +282,7 @@ La demande de certificat est généré avec openssl via la commande
 suivante :
 
 ```bash
-openssl req -new -key siteweb/keys/privatekey.key \>
-**siteweb/requests_certificats/demande.csr**
+openssl req -new -key siteweb/keys/privatekey.key \> siteweb/requests_certificats/demande.csr
 ```
 
 Le système va vous demander de saisir des champs ; remplissez-les en
@@ -330,8 +328,7 @@ certificat auto-signé.
 comme précédemment :
 
 ```bash
-openssl genrsa -des3 2048 \> \<a vous de préciser le chemin, soyez
-    cohérent SVP\> / private_ca.key
+openssl genrsa -des3 2048 > <a vous de préciser le chemin, soyez cohérent SVP> /private_ca.key
 ```
 
 Attention ne pas mélanger le fichier correspondant à notre serveur et
@@ -345,8 +342,7 @@ pas. Noter le ici : \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 durée de validité d\'un an auto-signé :
 
 ```bash
-openssl req -new -x509 -days 365 -key private_ca.key \>
-    autorite/certificats/ca.crt
+openssl req -new -x509 -days 365 -key private_ca.key > autorite/certificats/ca.crt
 ```
 
 ??? Warning "Attention"
@@ -370,9 +366,7 @@ La demande de certificat à signer est le fichier
 10. La commande qui signe la demande de certificat est la suivante :
 
 ```bash
-openssl x509 -req -in \[te_plante_pas\].csr -out \[a_adapter\].crt -CA
-\[certif_autorite\].crt -CAkey \[privatekey_ca\].key -CAcreateserial
--CAserial ca.srl
+openssl x509 -req -in \[te_plante_pas\].csr -out \[a_adapter\].crt -CA \[certif_autorite\].crt -CAkey \[privatekey_ca\].key -CAcreateserial -CAserial ca.srl
 ```
 
 Le certificat signé par l\'autorité de certification est le fichier
