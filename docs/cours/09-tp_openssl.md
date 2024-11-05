@@ -238,11 +238,49 @@ désormais.
 A noter : Nous ne disposons pas de la toute dernière version (1.1.1i de
 décembre 2020) mais cela suffira pour notre TP.
 
-2.  Que faudrait il faire pour avoir la toute dernière version ? (A
-    faire pour vous entrainer à compiler un projet à partir de ses
-    sources à la fin de ce TP si vous le désirez)
+!!! danger "Information très importante "
+    Vérification du nom de l’objet
 
-3.  Créer un dossier de travail ( tpssl par exemple) dans la VM avec
+    La RFC 2818, publiée en mai 2000, déconseille l’utilisation du champ Common Name (CN) dans les certificats TLS pour la vérification du nom de l’objet. Les certificats TLS sans la section SAN (Subject Alternative Name) ne peuvent plus être utilisés à des fins de vérification.
+    Les clients qui utilisent déjà TLS, mais qui n’utilisent pas de SAN, doivent mettre à jour leurs certificats pour se conformer aux nouvelles exigences. Plus important encore, les clients doivent ajouter les DNS et/ou les adresses IP externes au champ SAN (Subject Alternative Names) du certificat. 
+
+    Les navigateurs récents implémentent cette RFC et les certificats sans champ SAN ne sont plus validés.
+
+    OpenSSL ne gere malheuresement pas par défaut ce champ. Voici la solution:
+
+### Configuration openSSL (gestion RFC 2818)
+
+Editer le fichier ```/etc/ssl/openssl.cnf``` . Ce fichier décrit le comportemant que gère openSSL. C'est dans ce fichier que nous imposerons les champs SAN (Subject Alternative Names). 
+
+!!! danger "Information très importante "
+    Malheuresement, ces champs ne peuvent être renseignées par l'utilisateur de manière interactive.
+    Il faudra donc penser à faire cette manipulation pour chaque site que pour lesquel vous souhaité générer un certificat.
+
+````bash
+
+[ req ]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req    #Decommenter cette ligne et trouver la section
+
+...
+
+[ v3_req ]
+# Extensions to add to a certificate request
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+
+#########    Ajouter la ligne suivante:
+subjectAltName = @alt_names    # le @alt_names est un pointeur vers la section ci dessous
+
+[ alt_names ]
+DNS.1 = example.com             #Saisir le nom du domaine concerné (vous remarquez qu'il n'y a pas l'hôte associé)
+DNS.2 = www.example.com         #saisir le nom FQDN de votre site
+
+````
+
+N'oubliez pas d'enregistrer votre fichier
+
+2.  Créer un dossier de travail ( tpssl par exemple) dans la VM avec
     l'arborescence suivante afin de s'organiser un minimum. Vérifiez
     avec la commande tree à installer si vous ne l'avez pas déjà fait :
 
@@ -281,18 +319,29 @@ openssl genrsa 2048 > siteweb/keys/privatekey.key
 La demande de certificat est généré avec openssl via la commande
 suivante :
 
-```bash
-openssl req -new -key siteweb/keys/privatekey.key > siteweb/requests_certificats/demande.csr
-```
+!!! danger "Information très importante "
+    Normallement les modifications dans le fichier de conf d'open SSL sont prise en compte mais on peut forcer leur utilisation
+
+=== "classique"
+
+    ```bash
+    openssl req -new -key siteweb/keys/privatekey.key > siteweb/requests_certificats/demande.csr 
+    ```
+
+=== "Forcer l'usage du fichier de conf "
+
+    ```bash
+    openssl req -new -key siteweb/keys/privatekey.key > siteweb/requests_certificats/demande.csr -config /etc/ssl/openssl.cnf
+    ```
 
 Le système va vous demander de saisir des champs ; remplissez-les en
-adaptant sauf le champ \"**Common Name**\" qui doit correspondre
+adaptant sauf le champ **Common Name** qui doit correspondre
 exactement au nom de domaine utilisé correspondant à la directive
 **Server Name** défini dans le VHost d'apache. (ex :
 [www.lyceefulbert.fr](http://www.lyceefulbert.fr) Attention : ce domaine
 existe réellement, en choisir un autre obligatoirement)
 
-Ce n\'est pas la peine de saisir d\'autres \"extra attributes\"\...
+Ce n'est pas la peine de saisir d'autres "extra attributes"...
 
 Ce qui permet de générer votre **CSR certificat**. Celle-ci est créée
 dans le format PEM encodé en base64, PEM (*Privacy Enhanced Mail*) étant
@@ -303,7 +352,7 @@ Deux choix s'offrent désormais à nous :
 
 -   envoyer le fichier demande.csr à un organisme (le tiers de confiance
     ou **l\'autorité de certification (CA)**) et ainsi obtenir le
-    certificat dûment signé par la clé privée de l\'organisme (après
+    certificat dûment signé par la clé privée de l'organisme (après
     avoir payé),
 
 -   **ou bien signer nous-même notre certificat avec une autorité que
@@ -311,14 +360,20 @@ Deux choix s'offrent désormais à nous :
     reconnu comme étant de confiance. Cela ne peut donc pas être mis en
     production dans le monde réel.
 
-C\'est ce dernier choix que nous allons voir.
+C'est ce dernier choix que nous allons voir.
 
-Vérifions tout de même notre demande avant de la traiter :
+5.   Vérifions tout de même notre demande avant de la traiter :
 
-5.  openssl req -in siteweb/requests_certificats/demande.csr -noout
-    -text
+```bash 
+openssl req -in siteweb/requests_certificats/demande.csr -noout -text
+```
 
-## Création du certificat de l\'autorité de certification
+!!! danger "Important"
+    Verifier la présence des champs Subject Alternatives Names
+
+![](../medias/cours/openssl/SAN.png)
+
+## Création du certificat de l'autorité de certification
 
 Pour signer un certificat, vous devez devenir votre propre autorité de
 certification, cela implique donc de posséder une clé privée et un
@@ -365,11 +420,25 @@ La demande de certificat à signer est le fichier
 
 10. La commande qui signe la demande de certificat est la suivante :
 
-```bash
-openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl
-```
 
-Le certificat signé par l\'autorité de certification est le fichier
+=== "classique"
+
+    ```bash
+    openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl
+    ```
+
+=== "Forcer l'usage du fichier de conf "
+
+    ```bash
+    openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl -extfile openssl.cnf -extensions v3_req
+    ```
+
+!!! danger "Important"
+    Noter bien **-extfile openssl.cnf -extensions v3_req** a la fin de la demande de signature qui impose donc l'usage des options gérant les champs SAN.
+
+ 
+
+Le certificat signé par l'autorité de certification est le fichier
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
 
 11. Vérifier sa présence dans le système de fichier.
@@ -392,6 +461,10 @@ Le certificat signé par l\'autorité de certification est le fichier
 
 ![](../medias/cours/openssl/image6.png)
 
+!!! danger "Atttention"
+    La copie d'écran ci dessus ne montre pas les champs SAN pourtant nécessaire avec la RFC 2018
+
+
 ## Format PEM
 
 [PEM](https://www.ssl.com/fr/faq/comment-obtenir-mes-certificats-au-format-pem/)
@@ -401,13 +474,25 @@ plus courant pour
 certificats, CSRs et les clés cryptographiques. Un fichier PEM est un
 fichier texte contenant un ou plusieurs éléments en codage ASCII Base64,
 chacun avec des en-têtes et pieds de page en texte brut (par exemple
-````-----BEGIN CERTIFICATE\-----```` et ````-----END CERTIFICATE-----````). Un seul fichier PEM peut contenir un certificat
-d\'entité finale, une clé privée ou plusieurs certificats formant une
+````-----BEGIN CERTIFICATE-----```` et ````-----END CERTIFICATE-----````). 
+
+Un seul fichier PEM peut contenir un certificat
+d'entité finale, une clé privée ou plusieurs certificats formant une
 chaîne de confiance complète
+
+!!! warning "Remarque"
+    Avec Nginx, on utilise souvent des fichiers PEM qui sont des conteneurs avec le certificat et la clé privée. Ca permet de manipuler un seul fichier au lieu de deux.
 
 Le fichier n'est donc pas lisible par l'œil humain sans une conversion
 dans un format texte ce qui nous oblige à utiliser l'option -text pour
 afficher un contenu lisible.
+
+Pour générer un seul fichier PEM avec le certificat et la clé privée du serveur, il suffit de concatener les 2 fichier dans un troisième en utilisant cat (surtout pas nano) et l'opérateur de redirection de flux > qui crééra un fichier.
+
+
+````bash
+cat file1.crt file2.key > file3.pem
+````
 
 ## Configuration du serveur WEB
 
@@ -461,3 +546,9 @@ autorité de confiance.
 ![](../medias/cours/openssl/image12.png)
 
 ![](../medias/cours/openssl/image13.png)
+
+## Exemple de faux certificats forgé
+
+![](../medias/cours/openssl/facebook-fake.png)
+
+![](../medias/cours/openssl/certificats-fake.png)
