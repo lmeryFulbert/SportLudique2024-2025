@@ -254,7 +254,7 @@ Editer le fichier ```/etc/ssl/openssl.cnf``` . Ce fichier décrit le comporteman
 
 !!! danger "Information très importante "
     Malheuresement, ces champs ne peuvent être renseignées par l'utilisateur de manière interactive.
-    Il faudra donc penser à faire cette manipulation pour chaque site que pour lesquel vous souhaité générer un certificat.
+    Il faudra donc penser à faire cette manipulation pour chaque site que pour lesquel vous souhaitez générer un certificat.
 
 ````bash
 
@@ -308,11 +308,23 @@ Source : <https://www.keylength.com/fr/5/>
 
 ### Génération de la clé privée du serveur web
 
-```bash
-openssl genrsa 2048 > siteweb/keys/privatekey.key
-```
+=== "RSA"
 
-4.  Vérifier le contenu du fichier généré avec la commande cat.
+    ```bash
+    openssl genrsa 2048 > siteweb/keys/privatekey.key
+    ```
+
+=== "courbe eliptique"
+
+    ```bash
+    openssl ecparam -genkey -name prime256v1 -out privatekey.key
+    ```
+
+4.  Vérifier le contenu du fichier généré avec la commande ````cat```` pour les clés RSA ou pour les **courbes eliptique**
+
+```bash
+openssl ec -in privatekey.key -text -noout
+```
 
 ### Génération d'une demande de certificat pour le serveur web.
 
@@ -411,7 +423,7 @@ certification qui est fictive.
 
 8.  Quel passphrase est attendu ? Pourquoi ?
 
-## Traitement de la demande de certificat de notre serveur par l\'autorité de certification fictive
+## Traitement de la demande de certificat de notre serveur par l'autorité de certification fictive
 
 9.  Taper openssl x509 -help pour obtenir l'aide :
 
@@ -430,11 +442,11 @@ La demande de certificat à signer est le fichier
 === "Forcer l'usage du fichier de conf "
 
     ```bash
-    openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl -extfile openssl.cnf -extensions v3_req
+    openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl -extfile /etc/ssl/openssl.cnf -extensions v3_req
     ```
 
 !!! danger "Important"
-    Noter bien **-extfile openssl.cnf -extensions v3_req** a la fin de la demande de signature qui impose donc l'usage des options gérant les champs SAN.
+    Noter bien **-extfile openssl.cnf -extensions v3_req** a la fin de la demande de signature qui impose donc l'usage des options gérant les champs SAN. Il faut evidement le bon chemin. On peut imaginer un fichier de donc d'openssl par siteweb souhaité. A vous de vous adapter.
 
  
 
@@ -453,7 +465,7 @@ Le certificat signé par l'autorité de certification est le fichier
  └── requests_certificats
 ```
 
-12. Vérifier son contenu avec la commande approprié :\
+12. Vérifier son contenu avec la commande approprié :
 
 ```bash
     openssl x509 -in siteweb/certificats/siteweb.crt -noout -text
