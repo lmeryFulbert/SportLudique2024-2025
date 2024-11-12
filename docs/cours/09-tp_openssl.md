@@ -439,7 +439,7 @@ La demande de certificat à signer est le fichier
     openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl
     ```
 
-=== "Forcer l'usage du fichier de conf "
+=== "Forcer l'usage des champs Subject Alternatives Names (SAN) "
 
     ```bash
     openssl x509 -req -in [te_plante_pas].csr -out [a_adapter].crt -CA [certif_autorite].crt -CAkey [privatekey_ca].key -CAcreateserial -CAserial ca.srl -extfile /etc/ssl/openssl.cnf -extensions v3_req

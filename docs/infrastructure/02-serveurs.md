@@ -108,7 +108,7 @@ On montera chaque service de la DMZ dans l’une ou l’autre des technologies �
 
 -   Possibité de mettre en place un ReverseProxy afin de partager l'IP Publique unique disponible entre plusieurs serveurs privé.
 -   Mise en place de services web obligatoirement chiffré via technologie TLS
--   Serveur SFTP, en téléchargement de documents mis en ligne
+-   Serveur de partage de fichiers pour le téléchargement de documents mis en ligne supportant de multiples protocoles et necessitant une authentification des utilisateurs (**type Intranet**). A vous de proposer une solution technique cohérente.
 -   Haute disponibilité des services (**High Availability**)
 -   Répartition de charge (**Load Balancing**)
 
