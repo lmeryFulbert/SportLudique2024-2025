@@ -1,4 +1,4 @@
-# 08-API Hmail
+# 07-API Hmail
 
 ## Automatiser la création de boite aux lettres avec l’PAI HmailServer
 

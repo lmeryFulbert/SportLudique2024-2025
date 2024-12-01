@@ -1,4 +1,4 @@
-# 06 - Reverse Proxy
+# 09 - Reverse Proxy
 
 Un reverse proxy est un serveur qui agit en tant qu'intermédiaire entre les clients et les serveurs. Son rôle principal est de recevoir les requêtes des clients et de les rediriger vers les serveurs appropriés, puis de renvoyer les réponses des serveurs aux clients.
 
