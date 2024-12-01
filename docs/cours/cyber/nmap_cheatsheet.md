@@ -1,5 +1,5 @@
 
-# 07-Nmap Cheatsheet
+# Nmap Cheatsheet
 
 ## Commandes de base
 
