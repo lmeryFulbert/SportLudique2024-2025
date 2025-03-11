@@ -15,25 +15,28 @@ via un réseau public tout en assurant les services de sécurité suivants :
     utilisant les algorithmes de hachage ;
 -   l**a confidentialité** : assure que les données ne peuvent être lues
     par une personne tierce capturant le trafic ;
--   l**'anti-rejeu** : permet d\'ignorer des anciens paquets (des
+-   l**'anti-rejeu** : permet d'ignorer des anciens paquets (des
     paquets dont le numéro de séquence est antérieur à un certain seuil)
-    déjà reçus, s\'ils sont transmis à nouveau.
+    déjà reçus, s'ils sont transmis à nouveau.
 
 La négociation du tunnel entre les deux extrémités s'effectue avec le
 protocole **ISAKMP** (Internet Security Association Key Management
-Protocol) appelé aussi IKE dont la dernière version se nomme IKEv2[^1].
+Protocol) appelé aussi IKE dont la dernière version se nomme IKEv2.
 
 Une fois le tunnel établi entre les deux équipements, les extrémités de
 trafic correspondantes aux réseaux privés peuvent communiquer via le
-protocole ESP[^2] (Encapsultating Security Payload) qui assure la
+protocole ESP (Encapsultating Security Payload) qui assure la
 confidentialité et l'intégrité des données échangées. Le protocole ESP
 est encapsulé directement dans un datagramme IP.
 
 ![](../../medias/stormshield/fiches/fiche12_vpn_SNS/Pictures/10000000000004EB000002EBFA355742B0E16CD6.png)
 
-Dans le respect des bonnes pratiques, il est recommandé d'utiliser le
-protocole **IKEv2** pour la mise en œuvre du tunnel et une
-authentification forte par **certificats X509**.
+!!! danger "Important "
+    Dans le respect des bonnes pratiques, il est recommandé d'utiliser le
+    protocole **IKEv2** pour la mise en œuvre du tunnel et une
+    authentification forte par **certificats X509**.
+
+    Vous pouvez bien evidement commencer par un premier test avec une Shared Key (clé partagé) aux deux extermités du tunnel.
 
 ![](../../medias/stormshield/fiches/fiche12_vpn_SNS/Pictures/10000000000004DD000002E9C45A59457F2F9473.png)
 
