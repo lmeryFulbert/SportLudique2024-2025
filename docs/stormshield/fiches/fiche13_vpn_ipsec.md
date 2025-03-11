@@ -56,20 +56,25 @@ extrémité possédera donc deux clés symétriques, une pour chiffrer les
 données à envoyer et l'autre pour déchiffrer les données reçues dans
 l'autre canal.
 
-### Configurer le service VPN IPSec
+!!! danger "Attention "
+    Les tunnels IPSec sont générallement monté sur des routeurs ayant des **IP Publiques**. 
+    Quand le Tunnel doit être monté sur des routeurs "cachés" derrière du NAT, il faut configurer ce qu'on appelle communément le NAT-T (NAT Traversal)
 
+### Configurer le service VPN IPSec
 
 L'authentification lors de la création d'un tunnel VPN IPSec peut se
 faire de deux façons :
 
--   par la définition d'une clé pré-partagée commune ;
--   par l'utilisation de certificats X509 créés pour chaque extrémité à
+-   par la définition d'une **clé pré-partagée commune** ;
+-   par l'utilisation de **certificats X509** créés pour chaque extrémité à
     l'aide d'une PKI (Infrastructure à clés publiques utilisant une
     autorité de certification).
 
 L'utilisation de la clé pré-partagée est déconseillée en production et
 valable uniquement lors de phase de tests ou du maquettage. Nous
 choisirons ici l'authentification par certificats.
+
+#### Gestion de la PKI du SNS
 
 Dans un premier temps, il est donc nécessaire de créer une PKI sur l'un
 des pare-feux puis de créer des certificats serveurs pour chaque
@@ -149,7 +154,7 @@ Ajouter \> Importer un fichier.
 
 ![](../../medias/stormshield/fiches/fiche12_vpn_SNS/Pictures/100000000000035A0000015CF2DA913BCEECB803.png)
 
-### Configuration du VPN IPSEC
+#### Configuration du VPN IPSEC
 
 Maintenant que chaque pare-feu dispose de son certificat signé par la
 PKI précédemment créée, il s'agit de configurer le tunnel VPN IPSEC sur
@@ -249,3 +254,43 @@ afin de rendre le tunnel pleinement opérationnel.
     chiffrement utilisé, Keepalive, définition des sous-réseaux habilités à
     solliciter le tunnel VPN, etc). Il s'agit donc de faire preuve de
     rigueur et d'attention sur ces éléments en particulier.
+
+
+## Gestion du NAT-Traversal (NAT-T)
+
+Lorsque vous montez un tunnel IPSec entre deux équipements Stormshield, ces équipements vont chiffrer les paquets et les encapsuler dans le protocole **ESP (Encapsulating Security Payload)**, qui est un protocole de la suite IPSec.
+
+Problème :
+Les routeurs Cisco situés entre les deux équipements effectuent du NAT (Network Address Translation). Le NAT pose un problème avec ESP, car :
+
+- ESP est un protocole IP (“protocol 50”) et ne possède pas de numéro de port. Cela pose un problème avec le NAT (Network Address Translation) (comme avec TCP ou UDP).
+- Le NAT modifie les adresses IP : Cela casse l’intégrité du paquet IPSec, car les équipements IPSec vérifient l’intégrité des paquets (checksum + hash) et détectent toute modification comme une attaque.
+
+Solution : **NAT-Traversal (NAT-T)**
+Pour contourner ce problème, on encapsule les paquets ESP dans de l'UDP/4500.
+
+Voici les étapes du NAT-T :
+
+-   Détection du NAT : Lors de la phase d’établissement du tunnel IPSec (IKE), les équipements Stormshield et Cisco échangent des messages pour détecter s’il y a un NAT entre eux.
+-   L’usage du NAT-T provoquera l’ajout d’un en-tête UDP de 8 octets.
+-   Encapsulation ESP dans UDP/4500 : Une fois le NAT détecté, les paquets ESP sont encapsulés dans des paquets UDP, port 4500, ce qui permet au NAT de fonctionner correctement.
+-   Décapsulation : À la réception, l’équipement IPSec retire l’en-tête UDP et traite normalement le paquet ESP.
+
+![](../media/media/nat-t-encapsulation.png)
+
+!!! Danger "Important"
+    **NB :** Certains routeurs supportent l'autodetection de NAT-T, dautres non. Il faut evidement s'adapter au materiel utilisé. Nos vieux routeurs ne le supporte pas.
+
+Si l'équipement supporte nativement NAT-T il suffit de l'activer. 
+Exemple sur un équipement cisco:
+
+````bash
+crypto isakmp nat-traversal 20  #Le 20 correspond au délai en secondes pour détecter un NAT.
+````
+
+Dans le cas contraire, il faut forcer l'activation du NAT-T sur le firewall (Stromshield en l'occurence). et bien configurer la redirection du port UDP 4500 (pour ikeV2). Le port UDP 500 était autrefois utilisé pour IKEv1.
+
+````bash
+    ! Activer la redirection des ports UDP 4500 (NAT-T)
+ip nat inside source static udp 192.168.1.1 4500 interface GigabitEthernet0/0 4500
+````
