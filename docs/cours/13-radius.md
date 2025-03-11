@@ -37,7 +37,7 @@ Le service **Network Policy Server (NPS)** est le rôle Windows Server qui gère
 - Soit par identifiant/mot de passe (ex: EAP-PEAP, qui encapsule MSCHAPv2)
 - Soit par certificat client (ex: EAP-TLS, qui nécessite un certificat par utilisateur ou machine)
 
-### Ajouter l'équipement "authenticator" comme client RADIUS
+### Ajouter l'équipement l'Access Point comme client RADIUS
 
 Ajouter un nouveau client en précisant son nom, son IP et la clé secrète partagée.
 Type de client: RADIUS Standard
@@ -93,19 +93,20 @@ C’est dans ce contexte que TACACS a été conçu, initialement pour les termin
 
 
 
- ### Protocole et Port utilisé
-| Protocole  | 802.1X avec RADIUS | TACACS+ |
-|------------|-------------------|---------|
-| **Port** | UDP 1812 (Auth) / 1813 (Accounting) ou 1645/1646 | TCP 49 |
-| **Encapsulation** | UDP (moins fiable) | TCP (fiable, retransmission garantie) |
-| **Standard** | Ouvert, RFC 2865 | Propriétaire (Cisco) |
+### Protocole et Port utilisé
+| Protocole       | 802.1X avec RADIUS                        | TACACS+      |
+|-----------------|------------------------------------------|--------------|
+| **Port**        | UDP 1812 (Auth) / 1813 (Accounting) ou 1645/1646 | TCP 49      |
+| **Encapsulation** | UDP (moins fiable)                     | TCP (fiable, retransmission garantie) |
+| **Standard**    | Ouvert, RFC 2865                         | Propriétaire (Cisco) |
 
 
 ### Objectif et cas d’usage
-| Usage | 802.1X (RADIUS) | TACACS+ |
-|------------|----------------|---------|
-| **Contrôle d’accès aux équipements réseau (administration CLI)** | ❌ Non | ✅ Oui |
-| **Contrôle d’accès des utilisateurs au réseau (filaire/Wi-Fi)** | ✅ Oui | ❌ Non |
-| **Authentification sur VPN, Wi-Fi, réseau filaire** | ✅ Oui | ❌ Non |
-| **Authentification, Autorisation et Comptabilité (AAA)** | ✅ (Mais moins granulaire) | ✅
+| Usage                                            | 802.1X (RADIUS)         | TACACS+     |
+|--------------------------------------------------|-------------------------|-------------|
+| **Contrôle d’accès aux équipements réseau (administration CLI)** | ❌ Non              | ✅ Oui      |
+| **Contrôle d’accès des utilisateurs au réseau (filaire/Wi-Fi)** | ✅ Oui              | ❌ Non      |
+| **Authentification sur VPN, Wi-Fi, réseau filaire** | ✅ Oui              | ❌ Non      |
+| **Authentification, Autorisation et Comptabilité (AAA)** | ✅ (Mais moins granulaire) | ✅        |
+
 
