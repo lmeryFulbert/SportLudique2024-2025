@@ -77,9 +77,9 @@ Le protocole RADIUS (Remote Authentication Dial-In User Service) a été dévelo
 
 Il fallait donc un système robuste pour :
 
-    - Authentifier l’utilisateur avant qu’il puisse se connecter
-    - Contrôler son accès (quota, services autorisés, priorités, etc.)
-    - Enregistrer sa consommation pour la facturation
+- **Authentifier** l’utilisateur avant qu’il puisse se connecter
+- **Authorisation** : Contrôler son accès (quota, services autorisés, priorités, etc.)
+- **Accounting**: Enregistrer sa consommation pour la facturation
 
 C’est dans ce contexte que RADIUS a été conçu pour gérer les accès des abonnés en mode dial-up.
 
@@ -90,6 +90,7 @@ C’est dans ce contexte que TACACS a été conçu, initialement pour les termin
 802.1X (avec RADIUS) et TACACS+ sont deux protocoles utilisés pour contrôler l'accès au réseau, mais ils ont des usages et des fonctionnements différents. Voici les principales différences :
 
  RADIUS utilise UDP, ce qui le rend plus rapide mais moins fiable que TACACS+ qui fonctionne en TCP.
+
 
 
  ### Protocole et Port utilisé
