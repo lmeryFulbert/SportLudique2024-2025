@@ -25,7 +25,7 @@ Le service **Network Policy Server (NPS)** est le rôle Windows Server qui gère
 
 ### Authentification du Serveur
 
-- Le serveur NPS doit posséder un certificat SSL/TLS pour prouver son identité au supplicant.
+- Le serveur NPS doit posséder un certificat x509 pour prouver son identité au supplicant.
 - Ce certificat doit être signé par une autorité de certification (CA) reconnue par les clients.
 - Le certificat peut être auto-signé (test) ou issu d’une PKI interne ou publique.
 
@@ -53,21 +53,21 @@ Pour du WIFI:
 
 Définir la condition en spécifiant le groupe d'utilisateur concerné par la stratégie (via l'annuaire Active Directory).
 
-Définir la contrainte en précisant la methode d'authentification:
-- PEAP + MSChapov2 (identifiants + mot de passe)
-- ou Carte à Puce ou autre certificat (Authentification forte par certificats x509)
+Définir la contrainte en précisant la methode d'authentification (l'une ou l'autre):
+- PEAP + MSChapov2 (identifiants + mot de passe) 
+- Carte à Puce ou autre certificat (Authentification forte par certificats x509)
 
 Définir les paramètres suivants:
 
-- Framed-Protocol : PPP
-- Service-Type: Framed
-- Tunnel-Medium-Type : 802 (include all 802 media...)
-- Tunnel-Pvt-Group-ID : Numéro de VLAN souhaité pour cette stratégie
-- Tunnel-Type: Virtual LANs (VLAN)
+- **Framed-Protocol** : PPP
+- **Service-Type**: Framed
+- **Tunnel-Medium-Type** : 802 (include all 802 media...)
+- **Tunnel-Pvt-Group-ID** : Numéro de VLAN souhaité pour cette stratégie
+- **Tunnel-Type**: Virtual LANs (VLAN)
 
 ## Informations complémentaires
 
-### Historique de RADIUS et son lien avec la facturation des communications (AAA)
+### Historique des serveurs AAA (RADIUS puis TACAS)
 
 Le protocole RADIUS (Remote Authentication Dial-In User Service) a été développé en 1991 par Livingston Enterprises. Son objectif initial était de gérer l'authentification, l’autorisation et le comptage (accounting) (AAA) des utilisateurs accédant aux réseaux via des modems et des connexions dial-up (RTC).
 
@@ -87,16 +87,12 @@ Le protocole **TACACS (Terminal Access Controller Access-Control System)** a ét
 
 C’est dans ce contexte que TACACS a été conçu, initialement pour les terminaux des militaires et des opérateurs télécoms.
 
-802.1X (avec RADIUS) et TACACS+ sont deux protocoles utilisés pour contrôler l'accès au réseau, mais ils ont des usages et des fonctionnements différents. Voici les principales différences :
-
- RADIUS utilise UDP, ce qui le rend plus rapide mais moins fiable que TACACS+ qui fonctionne en TCP.
-
-
+802.1X (avec RADIUS) et TACACS+ sont deux protocoles utilisés pour contrôler l'accès au réseau, mais ils ont des usages et des fonctionnements différents. 
 
 ### Protocole et Port utilisé
 | Protocole       | 802.1X avec RADIUS                        | TACACS+      |
 |-----------------|------------------------------------------|--------------|
-| **Port**        | UDP 1812 (Auth) / 1813 (Accounting) ou 1645/1646 | TCP 49      |
+| **Port**        | UDP 1812 (Auth) / 1813 (Accounting)      | TCP 49      |
 | **Encapsulation** | UDP (moins fiable)                     | TCP (fiable, retransmission garantie) |
 | **Standard**    | Ouvert, RFC 2865                         | Propriétaire (Cisco) |
 
