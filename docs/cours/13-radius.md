@@ -4,11 +4,11 @@
 
 802.1X est un protocole d’authentification réseau utilisé pour contrôler l’accès aux réseaux filaires et sans fil. Il repose sur trois composants :
 
-- Supplicant : Le client (PC, téléphone, imprimante) qui veut accéder au réseau.
-- Authenticator : Le switch ou le point d'accès Wi-Fi qui intercepte la connexion et demande une authentification.
-- Authentication Server : Généralement un serveur RADIUS, qui vérifie les identifiants et renvoie une autorisation ou un refus.
+- **Supplicant** : Le client (PC, téléphone, imprimante) qui veut accéder au réseau.
+- **Authenticator** : Le switch ou le point d'accès Wi-Fi qui intercepte la connexion et demande une authentification.
+- **Authentication Server** : Généralement un serveur RADIUS, qui vérifie les identifiants et renvoie une autorisation ou un refus. On parle aussi de serveur Triple A (AAA)
 
-Le protocole EAP (Extensible Authentication Protocol) est utilisé pour transporter les informations d’authentification.
+Le protocole **EAP (Extensible Authentication Protocol)** est utilisé pour transporter les informations d’authentification.
 
 ## Pourquoi utiliser 802.1X ?
 
@@ -17,9 +17,25 @@ Le protocole EAP (Extensible Authentication Protocol) est utilisé pour transpor
 -  Permet l’authentification par certificat, identifiants (MS-CHAPv2), ou carte à puce.
 -  Peut être intégré avec un VLAN dynamique pour assigner des droits réseau en fonction du profil utilisateur.
 
-## Implémentation avec NPS (Network Policy Services de Microsoft) pour s'authentifier sur un réseau WIFI WPA2-Entreprise
+## Authentification sur un réseau WIFI WPA2-Entreprise avec NPS de microsoft
 
-Le Network Policy Server (NPS) est le rôle Windows Server qui gère l’authentification RADIUS.
+Le service **Network Policy Server (NPS)** est le rôle Windows Server qui gère l’authentification RADIUS.
+
+## Authentification des tiers
+
+### Authentification du Serveur
+
+- Le serveur NPS doit posséder un certificat SSL/TLS pour prouver son identité au supplicant.
+- Ce certificat doit être signé par une autorité de certification (CA) reconnue par les clients.
+- Le certificat peut être auto-signé (test) ou issu d’une PKI interne ou publique.
+
+!!! danger "Important"
+    Il est vivement recommandé de gérer la PKI sur un serveur dédié même s'il est "pratique" d'installer le role Active Directory Certificate Services (ADCS)
+
+### Authentification des clients
+
+- Soit par identifiant/mot de passe (ex: EAP-PEAP, qui encapsule MSCHAPv2)
+- Soit par certificat client (ex: EAP-TLS, qui nécessite un certificat par utilisateur ou machine)
 
 ### Ajouter l'équipement "authenticator" comme client RADIUS
 
@@ -49,7 +65,6 @@ Définir les paramètres suivants:
 - Tunnel-Pvt-Group-ID : Numéro de VLAN souhaité pour cette stratégie
 - Tunnel-Type: Virtual LANs (VLAN)
 
-
 ## Informations complémentaires
 
 ### Historique de RADIUS et son lien avec la facturation des communications (AAA)
@@ -75,6 +90,7 @@ C’est dans ce contexte que TACACS a été conçu, initialement pour les termin
 802.1X (avec RADIUS) et TACACS+ sont deux protocoles utilisés pour contrôler l'accès au réseau, mais ils ont des usages et des fonctionnements différents. Voici les principales différences :
 
  RADIUS utilise UDP, ce qui le rend plus rapide mais moins fiable que TACACS+ qui fonctionne en TCP.
+
 
  ### Protocole et Port utilisé
 | Protocole  | 802.1X avec RADIUS | TACACS+ |
