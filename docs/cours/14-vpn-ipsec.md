@@ -12,18 +12,18 @@ Un VPN site-à-site est un type de connexion qui permet de relier deux réseaux 
 
 -  **Processus** :
    -   Les deux sites échangent des informations pour s'authentifier mutuellement (par exemple, via des certificats ou des clés pré-partagées).
-    -   Les paramètres cryptographiques sont négociés, comme les algorithmes de chiffrement et d'intégrité.
-    -   Une fois l'authentification et la négociation des algorithmes réussies, un tunnel sécurisé est établi.
-    -   Protocoles utilisés : IKEv2 (Internet Key Exchange version 2), qui est un protocole très sécurisé et rapide pour la négociation des clés.
+   -   Les paramètres cryptographiques sont négociés, comme les algorithmes de chiffrement et d'intégrité.
+   -   Une fois l'authentification et la négociation des algorithmes réussies, un tunnel sécurisé est établi.
+   -   Protocoles utilisés : IKEv2 (Internet Key Exchange version 2), qui est un protocole très sécurisé et rapide pour la négociation des clés.
 
 ### Phase 2 : Négociation du tunnel de données (IPsec SA)
 
 -   **But** : La phase 2 permet de sécuriser le tunnel de données réel qui sera utilisé pour le transfert des informations entre les deux sites. Cela se fait en négociant une SA IPsec.
 -    **Processus** :
-        -   Les deux sites négocient les paramètres du tunnel IPsec (par exemple, le type de chiffrement, la durée de vie de la session, etc.).
-        -    Une fois cette négociation terminée, les données cryptées sont envoyées via ce tunnel sécurisé.
-        -    La phase 2 ne touche pas à l'authentification, elle se base sur les clés générées durant la phase 1.
-        -    Protocoles utilisés : IPsec pour le chiffrement et l'intégrité des données.
+    -   Les deux sites négocient les paramètres du tunnel IPsec (par exemple, le type de chiffrement, la durée de vie de la session, etc.).
+    -   Une fois cette négociation terminée, les données cryptées sont envoyées via ce tunnel sécurisé.
+    -   La phase 2 ne touche pas à l'authentification, elle se base sur les clés générées durant la phase 1.
+    -   Protocoles utilisés : IPsec pour le chiffrement et l'intégrité des données.
 
 ## Exemple simple
 
@@ -65,12 +65,13 @@ L'authentification reposera dans un premier temps sur une clé prépartagée
 
 Vous disposez d'un bouton de génération automatique de clé: pratique, mais bien penser à la copier/coller sur le second firewall: les clés doivent être identiques.
 
-Algorithmes:
--   AES256-GCM   clé de 128 bits, Hash: SHA256 Diffie Hellman Group: 14 (2048 bits)
+-   Algorithmes:
+    -   Chiffrement : AES256-GCM   clé de 128 bits, 
+    -   Hash: SHA256 
+    -   Diffie-Hellman Group: 14 (2048 bits)
 
-Laisser le reste des champs par défaut
-
-Activier le DeadPeer Detection (DPD) pour maintenir le Tunnel actif.
+-  Laisser le reste des champs par défaut
+-  Activier le DeadPeer Detection (DPD) pour maintenir le Tunnel actif.
 
 ### Configuration IPSec Phase 2
 
