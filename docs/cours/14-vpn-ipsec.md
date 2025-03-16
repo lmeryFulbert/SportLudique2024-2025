@@ -94,6 +94,15 @@ Il faut encapsuler nos pacquet dans des segments UDP sur le port 4500.
 
 les réseaux entre chaque firewall et son routeur est un réseau "Internal" sous virtualBox.
 
+### Structure des paquets
+
+Voici un Pacquet ESP qui contient des données chiffres (un paquet TCP ou UDP) est encapsulé dans un pacquet ESP.
+![](../medias/cours/ipsec/structure-ESP.png)
+
+Pour pouvoir traverser des routeurs qui font du NAT, les paquets ESP doivent eux même etre réencapsulé dans des paquets UDP/4500 : c'est le NAT-Traversal
+
+![](../medias/cours/ipsec/structure-NAT-T.png)
+
 ### Configuration des routeurs (linux Debian 12)
 
 Sur chacun des routeurs
