@@ -155,7 +155,13 @@ En cas de probleme ne pas hesitez à mettre une VM dans le réseau WAN en promis
 
 ![](../medias/cours/ipsec/ike_exchanges.png)
 
-![](../medias/cours/ipsec/wiresharck-filtre.png)
+Un filtre adapté sur wireshark:
+
+````bash
+udp.port==500 or udp.port==4500 or ESP
+````
+
+
 ![](../medias/cours/ipsec/capt1.png)
 ![](../medias/cours/ipsec/capt2.png)
 ![](../medias/cours/ipsec/capt3.png)
