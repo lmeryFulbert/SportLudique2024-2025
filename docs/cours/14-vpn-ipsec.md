@@ -142,6 +142,10 @@ Pensez à verifier vos règles de Firewalling
 
 En cas de probleme ne pas hesitez à mettre une VM dans le réseau WAN en promiscuité pour écouter les différents échanges. Les IP Sources et destinations doivent être les IP d'extremité publiques sans quoi le tunnel ne montera jamais.
 
+### Diagramme de séquence
+
+![](../medias/cours/ipsec/ike_exchanges.png)
+
 ![](../medias/cours/ipsec/wiresharck-filtre.png)
 ![](../medias/cours/ipsec/wiresharck.png)
 
