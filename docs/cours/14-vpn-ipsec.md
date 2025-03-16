@@ -156,7 +156,9 @@ En cas de probleme ne pas hesitez à mettre une VM dans le réseau WAN en promis
 ![](../medias/cours/ipsec/ike_exchanges.png)
 
 ![](../medias/cours/ipsec/wiresharck-filtre.png)
-![](../medias/cours/ipsec/wiresharck.png)
+![](../medias/cours/ipsec/capt1.png)
+![](../medias/cours/ipsec/capt2.png)
+![](../medias/cours/ipsec/capt3.png)
 
 
 
