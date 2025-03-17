@@ -101,7 +101,7 @@ Voici un Pacquet ESP qui contient des données chiffrées : Le Payload est un pa
 
 Pour pouvoir traverser un (ou plusieurs) routeur qui fait du NAT, les paquets ESP doivent eux même etre réencapsulés dans des paquets UDP/4500 : c'est le **NAT-Traversal**
 
-![](../medias/cours/ipsec/structure-NAT-T.png)
+![](../medias/cours/ipsec/structure-NAT-T2.png)
 
 ### Configuration des routeurs (linux Debian 12)
 
