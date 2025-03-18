@@ -14,7 +14,7 @@ Un VPN site-à-site est un type de connexion qui permet de relier deux réseaux 
    -   Les deux sites échangent des informations pour s'authentifier mutuellement (par exemple, via des certificats ou des clés pré-partagées).
    -   Les paramètres cryptographiques sont négociés, comme les algorithmes de chiffrement et d'intégrité.
    -   Une fois l'authentification et la négociation des algorithmes réussies, un tunnel sécurisé est établi.
-   -   Protocoles utilisés : isakmp via IKEv2 (Internet Key Exchange version 2), qui est un protocole très sécurisé et rapide pour la négociation des clés.
+   -   Protocoles utilisés : **isakmp** (Internet Security Association and Key Management Protocol) via l'implémentation **IKEv2** (Internet Key Exchange version 2), qui est un protocole très sécurisé et rapide pour la négociation des clés.
 
 ### Phase 2 : Négociation du tunnel de données (IPsec SA)
 
@@ -24,6 +24,22 @@ Un VPN site-à-site est un type de connexion qui permet de relier deux réseaux 
     -   Une fois cette négociation terminée, les données chiffrées sont envoyées via ce tunnel sécurisé.
     -   La phase 2 ne touche pas à l'authentification, elle se base sur les clés générées durant la phase 1.
     -   Protocoles utilisés : Encapsulating Security Payload (Paquet type ESP code 50) 
+
+!!! info "A comprendre"
+    ESP (Encapsulating Security Payload) est un protocole de la couche réseau (Layer 3 - IP).
+    On parle donc de Paquets IP même s'il y a il y a bien une en-tête IP avant ESP, mais cela ne change pas le fait que ESP encapsule un paquet IP (le payload chiffré).
+    
+    Paquet IP classique avec un segment TCP en couche 4:
+    ````
+    [ En-tête IP ] - [ En-tête TCP ] - [ Données ]
+    ````
+
+    Paquet ESP
+    ````
+    [ En-tête IP externe ] - [ En-tête ESP ] - [ Paquet IP original chiffré avec le segment TCP et les data ] - [ Authentification ESP ]
+    ````
+
+
 
 ## Exemple simple
 
@@ -138,7 +154,7 @@ table ip nat {
 ````
 
 !!! danger "Ne pas oublier de désactiver le Firewall"
-    On désactive UFW pour éviter des effets de bors indésirables
+    On désactive UFW pour éviter des effets de bords indésirables
 
 ````bash
 sudo ufw disable
@@ -146,7 +162,7 @@ sudo ufw disable
 
 ### Adapter la configuration du VPN
 
-Pensez à spécifier explicitement les adresse "publiques" pour l'authentification en pensant qu'on est derrière un routeur. Il faut donc bien mettre les IP Publiques (ici simulées en 10.0.2.0/24)
+Pensez à spécifier explicitement les adresses "publiques" pour l'authentification en pensant qu'on est derrière un routeur. Il faut donc bien mettre les IP Publiques (ici simulées en 10.0.2.0/24)
 
 ![](../medias/cours/ipsec/Nat-T.png)
 
@@ -162,7 +178,12 @@ En cas de probleme ne pas hesitez à mettre une VM dans le réseau WAN en promis
 
 Voila le résumé des échanges entre les 2 parefeux
 
-![](../medias/cours/ipsec/ike_exchanges.png)
+-  IKE_SA_INIT : échange pour négocier les paramètres de sécurité (algorithme de chiffrement pour la confidentialité, fonction de hachage pour l’intégrité, fonction pseudo-aléatoire ou Pseudo-Random Function pour dériver les clés de chiffrement à partir de la négociation initiale, groupe et valeur DH pour l’échange de clés initial, nonce pour éviter le rejeu des valeurs cryptographiques calculées).
+-  IKE_AUTH : échange pour transmettre les identités et création de la première SA ESP.
+-  INFORMATIONAL : échange pour vérifier la continuitié d’une SA, supprimer des SA, reporter des erreurs, etc.
+-  CREATE_CHILD_SA : échange pour créer des SA ESP supplémentaires. 
+
+![](../medias/cours/ipsec/isakmp_exchanges.png)
 
 Un filtre adapté sur wireshark pour pouvoir les analyser:
 
