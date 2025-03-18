@@ -164,7 +164,7 @@ sudo ufw disable
 
 Pensez à spécifier explicitement les adresses "publiques" pour l'authentification en pensant qu'on est derrière un routeur. Il faut donc bien mettre les IP Publiques (ici simulées en 10.0.2.0/24)
 
-![](../medias/cours/ipsec/NAT-T.png)
+![](../medias/cours/ipsec/NAT-T2.png)
 
 ![](../medias/cours/ipsec/ipsec-status.png)
 
