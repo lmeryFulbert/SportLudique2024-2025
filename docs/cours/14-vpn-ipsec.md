@@ -178,10 +178,14 @@ En cas de probleme ne pas hesitez à mettre une VM dans le réseau WAN en promis
 
 Voila le résumé des échanges entre les 2 parefeux
 
--  IKE_SA_INIT : échange pour négocier les paramètres de sécurité (algorithme de chiffrement pour la confidentialité, fonction de hachage pour l’intégrité, fonction pseudo-aléatoire ou Pseudo-Random Function pour dériver les clés de chiffrement à partir de la négociation initiale, groupe et valeur DH pour l’échange de clés initial, nonce pour éviter le rejeu des valeurs cryptographiques calculées).
+-  IKE_SA_INIT : échange pour négocier les paramètres de sécurité (algorithme de chiffrement pour la confidentialité, fonction de hachage pour l’intégrité, fonction pseudo-aléatoire ou Pseudo-Random Function pour dériver les clés de chiffrement à partir de la négociation initiale, groupe et valeur DH pour l’échange de clés initial, **nonce** pour éviter le rejeu des valeurs cryptographiques calculées).
 -  IKE_AUTH : échange pour transmettre les identités et création de la première SA ESP.
 -  INFORMATIONAL : échange pour vérifier la continuitié d’une SA, supprimer des SA, reporter des erreurs, etc.
 -  CREATE_CHILD_SA : échange pour créer des SA ESP supplémentaires. 
+
+!!! info "A comprendre"
+    Un **nonce** (abréviation de number used once, ou "nombre utilisé une seule fois") est une valeur aléatoire ou pseudo-aléatoire utilisée pour éviter les attaques par rejeu et renforcer la sécurité des échanges cryptographiques.
+
 
 ![](../medias/cours/ipsec/isakmp_exchanges.png)
 
