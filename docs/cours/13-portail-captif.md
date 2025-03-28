@@ -36,4 +36,6 @@ Stormshield prévoit trois modes d’authentification via un portail captif pour
 
 La manière de configuré le portail captif est toujours similaire.
 
+## Présentation de la maquette
 
+![](../medias/cours/portail-captif/schema-reseau.png)
