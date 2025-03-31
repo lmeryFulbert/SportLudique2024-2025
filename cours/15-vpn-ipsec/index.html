@@ -1,0 +1,2268 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lmeryfulbert.github.io/SportLudique2024-2025/cours/15-vpn-ipsec/">
+      
+      
+        <link rel="prev" href="../14-radius/">
+      
+      
+        <link rel="next" href="../DNS/dns/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.10">
+    
+    
+      
+        <title>14 VPN IPSec - site à site - SportLudique Project 2024-2025</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#14-vpn-ipsec-site-a-site" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SportLudique Project 2024-2025" class="md-header__button md-logo" aria-label="SportLudique Project 2024-2025" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SportLudique Project 2024-2025
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              14 VPN IPSec - site à site
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SportLudique Project 2024-2025" class="md-nav__button md-logo" aria-label="SportLudique Project 2024-2025" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SportLudique Project 2024-2025
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contexte
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contexte
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/01-pr%C3%A9sentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Présentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/02-SystemeInformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Le Système d'Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/03_infrastructure-actuelle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure actuelle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Objectifs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Objectifs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/00-Objectifs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectifs à atteindre
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/01-Objectif-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif stratégique 1 : Réduire les coûts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/02-Objectif-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 2 : Prendre en compte la dimension cartographique
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/03-Objectif-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 3 - Sécuriser le SI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/04-Objectif-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 4 : Placer l’entreprise dans une logique de développement durable.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cours
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cours
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-git-mkdocs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-Utilisation de git et de mkdocs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vlsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-VLSM (Variable Length Subnet Mask)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-Virtualisation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-nat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-NAT Dynamique (Masquerade) version Cisco
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-hsrp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-FailOver avec le Protocole HSRP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-messagerie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06 - Messagerie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-hmailapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    07-API Hmail
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-tp_openssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    08- Protocole TLS avec OpenSSL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-reverse-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    09 - Reverse Proxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-HAProxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10 - LoadBalacing avec HA Proxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11 Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-openvpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 - VPN avec OpenVPN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-portail-captif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13 Portail Captif avec Stormshield
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-radius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13 Authentification - 802.1X
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    14 VPN IPSec - site à site
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    14 VPN IPSec - site à site
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quest-ce-quun-vpn-site-a-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qu'est-ce qu'un VPN Site à site
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-2-phases-necessaires-dans-un-vpn-site-a-site-avec-ikev2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les 2 Phases nécessaires dans un VPN Site-à-Site avec IKEv2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Les 2 Phases nécessaires dans un VPN Site-à-Site avec IKEv2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-etablissement-du-tunnel-securise-ike-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1 : Établissement du tunnel sécurisé (IKE SA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-negociation-du-tunnel-de-donnees-ipsec-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2 : Négociation du tunnel de données (IPsec SA)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple simple
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemple simple">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-reseaux-sous-virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestion des réseaux sous VirtualBox
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-ipsec-phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration IPSec Phase 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-ipsec-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration IPSec Phase 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situation-2-nat-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      Situation 2 - NAT-T
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Situation 2 - NAT-T">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-des-paquets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure des paquets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-des-routeurs-linux-debian-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration des routeurs (linux Debian 12)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration des routeurs (linux Debian 12)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurer-le-nat-et-la-redirection-de-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurer le NAT et la redirection de port:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapter-la-configuration-du-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adapter la configuration du VPN
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagramme-de-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagramme de séquence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_16" id="__nav_3_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    DNS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_16">
+            <span class="md-nav__icon md-icon"></span>
+            DNS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DNS/dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNS (Domain Name System)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DNS/unbound/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resolver Unbound
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_17" id="__nav_3_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cyber
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_17">
+            <span class="md-nav__icon md-icon"></span>
+            Cyber
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cyber/nmap_cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nmap Cheatsheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Infrastructure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction sur l'infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/02-serveurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Liste des serveurs et services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/03-infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/04-annexes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Annexes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/05-fiche-recette/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche de Recette
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Stormshield
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Stormshield
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fiches
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Fiches
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/commandesUtilesConsole_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CheatSheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche01_initialiser_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 01 -- Initialiser un Pare-feu SNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche02_priseEnMain_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 02 -- Prise en main d'un Pare-feu SNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche03_gestionJournaux_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 03 -- Traces, Journaux et supervision
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche04_configurationReseau_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 04 -- Configuration du réseau
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche05_configurationObjetsReseaux_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 05 -- Configuration des Objets Réseau
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche06_configurationNat_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 06-- Configuration du NAT/PAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche07_filtrage_protocolaire_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 07-- Filtrage protocolaire
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche08_filtrage_applicatifSNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 08 -- Filtrage applicatif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche09_IDS_IPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 09 - Prévention d'intrusion IDS/IPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche10_utilisateurs_authentification_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 10 -- Utilisateurs, authentification et portail captif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche11_infrastructure_cles_publiques_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 11 -- Infrastructures à clés pubiques (PKI)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche12_vpn_openvpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 12 -- VPN pour utilisateurs nomades
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche13_vpn_ipsec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 13 -- VPN site à site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quest-ce-quun-vpn-site-a-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qu'est-ce qu'un VPN Site à site
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-2-phases-necessaires-dans-un-vpn-site-a-site-avec-ikev2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les 2 Phases nécessaires dans un VPN Site-à-Site avec IKEv2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Les 2 Phases nécessaires dans un VPN Site-à-Site avec IKEv2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-etablissement-du-tunnel-securise-ike-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1 : Établissement du tunnel sécurisé (IKE SA)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-negociation-du-tunnel-de-donnees-ipsec-sa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2 : Négociation du tunnel de données (IPsec SA)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple simple
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemple simple">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-reseaux-sous-virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestion des réseaux sous VirtualBox
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-ipsec-phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration IPSec Phase 1
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-ipsec-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration IPSec Phase 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#situation-2-nat-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      Situation 2 - NAT-T
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Situation 2 - NAT-T">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-des-paquets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure des paquets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-des-routeurs-linux-debian-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration des routeurs (linux Debian 12)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration des routeurs (linux Debian 12)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configurer-le-nat-et-la-redirection-de-port" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurer le NAT et la redirection de port:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adapter-la-configuration-du-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adapter la configuration du VPN
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagramme-de-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagramme de séquence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="14-vpn-ipsec-site-a-site">14 VPN IPSec - site à site</h1>
+<h2 id="quest-ce-quun-vpn-site-a-site">Qu'est-ce qu'un VPN Site à site</h2>
+<p>Un VPN site-à-site est un type de connexion qui permet de relier deux réseaux distants via un tunnel sécurisé sur Internet. Contrairement à un VPN client-serveur, où un utilisateur individuel se connecte à un réseau distant, un VPN site-à-site permet à deux réseaux (par exemple, deux bureaux d'une entreprise) de se connecter entre eux, comme s'ils étaient directement reliés par un câble, mais de manière sécurisée à travers Internet.</p>
+<h2 id="les-2-phases-necessaires-dans-un-vpn-site-a-site-avec-ikev2">Les 2 Phases nécessaires dans un VPN Site-à-Site avec IKEv2</h2>
+<h3 id="phase-1-etablissement-du-tunnel-securise-ike-sa">Phase 1 : Établissement du tunnel sécurisé (IKE SA)</h3>
+<ul>
+<li>
+<p><strong>But</strong> : La phase 1 permet de négocier et de sécuriser la communication entre les deux sites. Cela consiste principalement à établir un tunnel IKE (Internet Key Exchange) sécurisé, appelé SA (Security Association).</p>
+</li>
+<li>
+<p><strong>Processus</strong> :</p>
+</li>
+<li>Les deux sites échangent des informations pour s'authentifier mutuellement (par exemple, via des certificats ou des clés pré-partagées).</li>
+<li>Les paramètres cryptographiques sont négociés, comme les algorithmes de chiffrement et d'intégrité.</li>
+<li>Une fois l'authentification et la négociation des algorithmes réussies, un tunnel sécurisé est établi.</li>
+<li>Protocoles utilisés : <strong>isakmp</strong> (Internet Security Association and Key Management Protocol) via l'implémentation <strong>IKEv2</strong> (Internet Key Exchange version 2), qui est un protocole très sécurisé et rapide pour la négociation des clés.</li>
+</ul>
+<h3 id="phase-2-negociation-du-tunnel-de-donnees-ipsec-sa">Phase 2 : Négociation du tunnel de données (IPsec SA)</h3>
+<ul>
+<li><strong>But</strong> : La phase 2 permet de sécuriser le tunnel de données réel qui sera utilisé pour le transfert des informations entre les deux sites. Cela se fait en négociant une SA IPsec.</li>
+<li><strong>Processus</strong> :<ul>
+<li>Les deux sites négocient les paramètres du tunnel IPsec (par exemple, le type de chiffrement, la durée de vie de la session, etc.).</li>
+<li>Une fois cette négociation terminée, les données chiffrées sont envoyées via ce tunnel sécurisé.</li>
+<li>La phase 2 ne touche pas à l'authentification, elle se base sur les clés générées durant la phase 1.</li>
+<li>Protocoles utilisés : Encapsulating Security Payload (Paquet type ESP code 50) </li>
+</ul>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">A comprendre</p>
+<p>ESP (Encapsulating Security Payload) est un protocole de la couche réseau (Layer 3 - IP).
+On parle donc de Paquets IP même s'il y a il y a bien une en-tête IP avant ESP, mais cela ne change pas le fait que ESP encapsule un paquet IP (le payload chiffré).</p>
+<p>Paquet IP classique avec un segment TCP en couche 4:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[ En-tête IP ] - [ En-tête TCP ] - [ Données ]
+</span></code></pre></div></p>
+<p>Paquet ESP
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[ En-tête IP externe ] - [ En-tête ESP ] - [ Paquet IP original chiffré avec le segment TCP et les data ] - [ Authentification ESP ]
+</span></code></pre></div></p>
+</div>
+<h2 id="exemple-simple">Exemple simple</h2>
+<p>Voici un exemple de maquette implémentée avec VirtualBox</p>
+<ul>
+<li>le réseau WAN entre les firewalls (pfsense) est simulé avec le réseau NAT-Network de virtualBox qu'il faut penser à créer. Il aura un adressage privé (10.0.2.0/24, GW: 10.0.2.1).</li>
+<li>les 2 Firewalls pfsense disposeront d'une interface LAN sur un réseau host-only dédié. Sous windows le réseau host-oncly par défaut est dans le réseau 192.168.56.0/24. Pensez a ajouter un second réseau.</li>
+</ul>
+<h3 id="gestion-des-reseaux-sous-virtualbox">Gestion des réseaux sous VirtualBox</h3>
+<p><img alt="" src="../../medias/cours/ipsec/gestion-reseau.png" /></p>
+<p><img alt="" src="../../medias/cours/ipsec/Nat-network.png" /></p>
+<p><img alt="" src="../../medias/cours/ipsec/host-only.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Remarque très importante</p>
+<p>Vous penserez à ne pas bloquer les adresses RFC 1918 sur vos interface WAN des 2 Firewalls: c'est activé par défaut et rendra la communication impossible !</p>
+</div>
+<p><img alt="" src="../../medias/cours/ipsec/schema1.png" /></p>
+<h3 id="configuration-ipsec-phase-1">Configuration IPSec Phase 1</h3>
+<p>Vérifier vos communications réseau avec des requètes ICMP ping et mettez les règles de Firewall si nécessaire.</p>
+<p>Sur chacun des firewalls (pfsense) , Dans VPN / IPSEC</p>
+<p>Créer un nouveau Tunnel</p>
+<ul>
+<li>Choisir IKEv2</li>
+<li>Interface: Votre interface WAN</li>
+<li>Paserelle Distante: l'adresse IP WAN du routeur distant</li>
+</ul>
+<p>L'authentification reposera dans un premier temps sur une clé prépartagée</p>
+<ul>
+<li>MyIdentifier: Votre IP WAN</li>
+<li>PeerIdentifier: l'IP WAN distante</li>
+</ul>
+<p>Vous disposez d'un bouton de génération automatique de clé: Pratique, mais bien penser à la copier/coller sur le second firewall: <strong>les clés doivent être identiques</strong>.</p>
+<ul>
+<li>
+<p>Algorithmes:</p>
+<ul>
+<li>Chiffrement : AES256-GCM   clé de 128 bits, </li>
+<li>Hash: SHA256 </li>
+<li>Diffie-Hellman Group: 14 (2048 bits)</li>
+</ul>
+</li>
+<li>
+<p>Laisser le reste des champs par défaut</p>
+</li>
+<li>Activier le DeadPeer Detection (DPD) pour maintenir le Tunnel actif.</li>
+</ul>
+<h3 id="configuration-ipsec-phase-2">Configuration IPSec Phase 2</h3>
+<p>Ajouter une phase 2</p>
+<ul>
+<li>
+<p>Precisez les réseaux locaux (LAN) et distant.
+chez moi: 192.168.56.0/24 et 192.16.113.0/24 </p>
+</li>
+<li>
+<p>SA KeyExchange: Protocol ESP</p>
+</li>
+<li>Algorithmes: AES, AES 128GCM, ajoutez AES256-GCM (ikev2 seulement)</li>
+<li>Vous pouvez ajoutez un ping automatique pour joindre l'interface LAN du FW distant pour générer du trafic dans le Tunnel.</li>
+</ul>
+<h2 id="situation-2-nat-t">Situation 2 - NAT-T</h2>
+<p>L'objectif ici est de traverser des routeurs frontaux aux Firewalls.
+Les paquets ESP sont de couche 3 et ne traversent donc pas les routeurs.
+Il faut encapsuler nos pacquets dans des segments UDP sur le port 4500.</p>
+<p><img alt="" src="../../medias/cours/ipsec/schema2.png" /></p>
+<p>le réseaux entre chaque firewall et son routeur est un réseau <strong>"Internal"</strong> sous VirtualBox.</p>
+<h3 id="structure-des-paquets">Structure des paquets</h3>
+<p>Voici un Pacquet ESP qui contient des données chiffrées : Le Payload est un paquet TCP ou UDP qui est encapsulé dans un pacquet ESP.
+<img alt="" src="../../medias/cours/ipsec/structure-ESP.png" /></p>
+<p>Pour pouvoir traverser un (ou plusieurs) routeur qui fait du NAT, les paquets ESP doivent eux même etre réencapsulés dans des paquets UDP/4500 : c'est le <strong>NAT-Traversal</strong></p>
+<p><img alt="" src="../../medias/cours/ipsec/structure-NAT-T2.png" /></p>
+<h3 id="configuration-des-routeurs-linux-debian-12">Configuration des routeurs (linux Debian 12)</h3>
+<p>Sur chacun des routeurs:</p>
+<ul>
+<li>Reperer votre interface "wan" (enp0s3 pour moi).</li>
+</ul>
+<h4 id="configurer-le-nat-et-la-redirection-de-port">Configurer le NAT et la redirection de port:</h4>
+<p>Il faut faire une redirection des port UDP 500 et 4500 vers chacun des Firewalls.
+Sous Debian 12, iptable a été remplacé par son successeur nftable.
+Pour prendre en compte le Nat il suffit d'installer UFW (Uncomplicated Firewall).</p>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>UFW est pratique dans le cadre d'un usage "classique".
+Des règles par défaut sont implémentées et ne sont pas forcement compatible avec le VPN même après avoir ouvert les ports concernés (j'enquête encore dessus). La solution la plus simple sera de désactiver UFW</p>
+</div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nftables.conf
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">##ajouter ces lignes a la fin pour configurer le NAT et la redirection de port en adaptant bien evidement (ici je suis sur le routeur B)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>table<span class="w"> </span>ip<span class="w"> </span>nat<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span>chain<span class="w"> </span>postrouting<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">                </span><span class="nb">type</span><span class="w"> </span>nat<span class="w"> </span>hook<span class="w"> </span>postrouting<span class="w"> </span>priority<span class="w"> </span>srcnat<span class="p">;</span><span class="w"> </span>policy<span class="w"> </span>accept<span class="p">;</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">                </span>oifname<span class="w"> </span><span class="s2">&quot;enp0s3&quot;</span><span class="w"> </span>masquerade
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="o">}</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span>chain<span class="w"> </span>prerouting<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">            </span><span class="nb">type</span><span class="w"> </span>nat<span class="w"> </span>hook<span class="w"> </span>prerouting<span class="w"> </span>priority<span class="w"> </span>filter<span class="p">;</span><span class="w"> </span>policy<span class="w"> </span>accept<span class="p">;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">            </span>iifname<span class="w"> </span><span class="s2">&quot;enp0s3&quot;</span><span class="w"> </span>udp<span class="w"> </span>dport<span class="w"> </span><span class="m">500</span><span class="w"> </span>dnat<span class="w"> </span>to<span class="w"> </span><span class="m">172</span>.16.20.1:500
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">            </span>iifname<span class="w"> </span><span class="s2">&quot;enp0s3&quot;</span><span class="w"> </span>udp<span class="w"> </span>dport<span class="w"> </span><span class="m">4500</span><span class="w"> </span>dnat<span class="w"> </span>to<span class="w"> </span><span class="m">172</span>.16.20.1:4500
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">        </span><span class="o">}</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="o">}</span>
+</span></code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Ne pas oublier de désactiver le Firewall</p>
+<p>On désactive UFW pour éviter des effets de bords indésirables</p>
+</div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>ufw<span class="w"> </span>disable
+</span></code></pre></div>
+<h3 id="adapter-la-configuration-du-vpn">Adapter la configuration du VPN</h3>
+<p>Pensez à spécifier explicitement les adresses "publiques" pour l'authentification en pensant qu'on est derrière un routeur. Il faut donc bien mettre les IP Publiques (ici simulées en 10.0.2.0/24)</p>
+<p><img alt="" src="../../medias/cours/ipsec/NAT-T2.png" /></p>
+<p><img alt="" src="../../medias/cours/ipsec/ipsec-status.png" /></p>
+<p>Pensez à verifier vos règles de filtrage.</p>
+<p><img alt="" src="../../medias/cours/ipsec/Firewall.png" /></p>
+<p>En cas de probleme ne pas hesitez à mettre une VM dans le réseau WAN en promiscuité pour écouter les différents échanges. Les IP "source" et "destination" doivent être les IP d'extremitées publiques sans quoi le tunnel ne montera jamais.</p>
+<h3 id="diagramme-de-sequence">Diagramme de séquence</h3>
+<p>Voila le résumé des échanges entre les 2 parefeux</p>
+<ul>
+<li>IKE_SA_INIT : échange pour négocier les paramètres de sécurité (algorithme de chiffrement pour la confidentialité, fonction de hachage pour l’intégrité, fonction pseudo-aléatoire ou Pseudo-Random Function pour dériver les clés de chiffrement à partir de la négociation initiale, groupe et valeur DH pour l’échange de clés initial, <strong>nonce</strong> pour éviter le rejeu des valeurs cryptographiques calculées).</li>
+<li>IKE_AUTH : échange pour transmettre les identités et création de la première SA ESP.</li>
+<li>INFORMATIONAL : échange pour vérifier la continuitié d’une SA, supprimer des SA, reporter des erreurs, etc.</li>
+<li>CREATE_CHILD_SA : échange pour créer des SA ESP supplémentaires. </li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">A comprendre</p>
+<p>Un <strong>nonce</strong> (abréviation de number used once, ou "nombre utilisé une seule fois") est une valeur aléatoire ou pseudo-aléatoire utilisée pour éviter les attaques par rejeu et renforcer la sécurité des échanges cryptographiques.</p>
+</div>
+<p><img alt="" src="../../medias/cours/ipsec/isakmp_exchanges.png" /></p>
+<p>Un filtre adapté sur wireshark pour pouvoir les analyser:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>udp.port<span class="o">==</span><span class="m">500</span><span class="w"> </span>or<span class="w"> </span>udp.port<span class="o">==</span><span class="m">4500</span><span class="w"> </span>or<span class="w"> </span>ESP
+</span></code></pre></div>
+<p><img alt="" src="../../medias/cours/ipsec/capt1.png" />
+<img alt="" src="../../medias/cours/ipsec/capt2.png" />
+<img alt="" src="../../medias/cours/ipsec/capt3.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Il faut evidement être plus restrictif sur les sources et destination dans le monde réel.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Problème courant</p>
+<p>Simuler un routeur avec un noyeau Linux peut être laborieux, normallement avec vos routeurs Cisco vous devriez être moins embetté et ne pas avoir à gérer les règles nftable remplacant iptable</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 MERY Ludovic - Lycée Fulbert - Chartres
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

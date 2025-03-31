@@ -1,0 +1,2707 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lmeryfulbert.github.io/SportLudique2024-2025/cours/08-tp_openssl/">
+      
+      
+        <link rel="prev" href="../07-hmailapi/">
+      
+      
+        <link rel="next" href="../09-reverse-proxy/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.10">
+    
+    
+      
+        <title>08- Protocole TLS avec OpenSSL - SportLudique Project 2024-2025</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#08-protocole-tls-avec-openssl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SportLudique Project 2024-2025" class="md-header__button md-logo" aria-label="SportLudique Project 2024-2025" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SportLudique Project 2024-2025
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              08- Protocole TLS avec OpenSSL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SportLudique Project 2024-2025" class="md-nav__button md-logo" aria-label="SportLudique Project 2024-2025" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SportLudique Project 2024-2025
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contexte
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contexte
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/01-pr%C3%A9sentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Présentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/02-SystemeInformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Le Système d'Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/03_infrastructure-actuelle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure actuelle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Objectifs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Objectifs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/00-Objectifs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectifs à atteindre
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/01-Objectif-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif stratégique 1 : Réduire les coûts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/02-Objectif-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 2 : Prendre en compte la dimension cartographique
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/03-Objectif-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 3 - Sécuriser le SI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contexte/Objectifs/04-Objectif-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 4 : Placer l’entreprise dans une logique de développement durable.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cours
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cours
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-git-mkdocs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-Utilisation de git et de mkdocs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-vlsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-VLSM (Variable Length Subnet Mask)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-Virtualisation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-nat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-NAT Dynamique (Masquerade) version Cisco
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-hsrp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-FailOver avec le Protocole HSRP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-messagerie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06 - Messagerie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-hmailapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    07-API Hmail
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    08- Protocole TLS avec OpenSSL
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    08- Protocole TLS avec OpenSSL
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mise-en-place-dun-serveur-web-securise-https-avec-le-protocole-ssl-tls-avec-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mise en place d'un serveur web sécurisé (https) avec le Protocole SSL / TLS avec OpenSSL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mise en place d&#39;un serveur web sécurisé (https) avec le Protocole SSL / TLS avec OpenSSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#difference-entre-ssl-et-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Différence entre SSL et TLS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommandations-officielles-de-la-cnil" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommandations officielles de la CNIL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommandations officielles de la CNIL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-precautions-elementaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les précautions élémentaires
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-quil-ne-faut-pas-faire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ce qu'il ne faut pas faire
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openssl-ou-lets-encrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenSSL ou Let's Encrypt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-dopenssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation d'OpenSSL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation d&#39;OpenSSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-openssl-gestion-rfc-2818" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration openSSL (gestion RFC 2818)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creation-de-la-demande-de-certificat-par-le-proprietaire-du-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création de la demande de certificat par le propriétaire du site
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Création de la demande de certificat par le propriétaire du site">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generation-de-la-cle-privee-du-serveur-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Génération de la clé privée du serveur web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generation-dune-demande-de-certificat-pour-le-serveur-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Génération d'une demande de certificat pour le serveur web.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creation-du-certificat-de-lautorite-de-certification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création du certificat de l'autorité de certification
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traitement-de-la-demande-de-certificat-de-notre-serveur-par-lautorite-de-certification-fictive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traitement de la demande de certificat de notre serveur par l'autorité de certification fictive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-pem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format PEM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-du-serveur-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration du serveur WEB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consultation-du-site-web-avec-chrome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consultation du site web avec chrome
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-de-faux-certificats-forge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple de faux certificats forgé
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-reverse-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    09 - Reverse Proxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-HAProxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10 - LoadBalacing avec HA Proxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11 Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-openvpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 - VPN avec OpenVPN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-portail-captif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13 Portail Captif avec Stormshield
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-radius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13 Authentification - 802.1X
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-vpn-ipsec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    14 VPN IPSec - site à site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_16" id="__nav_3_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    DNS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_16">
+            <span class="md-nav__icon md-icon"></span>
+            DNS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DNS/dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNS (Domain Name System)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DNS/unbound/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resolver Unbound
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_17" id="__nav_3_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cyber
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_17">
+            <span class="md-nav__icon md-icon"></span>
+            Cyber
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cyber/nmap_cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nmap Cheatsheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Infrastructure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction sur l'infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/02-serveurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Liste des serveurs et services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/03-infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/04-annexes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Annexes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../infrastructure/05-fiche-recette/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche de Recette
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Stormshield
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Stormshield
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fiches
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Fiches
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/commandesUtilesConsole_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CheatSheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche01_initialiser_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 01 -- Initialiser un Pare-feu SNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche02_priseEnMain_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 02 -- Prise en main d'un Pare-feu SNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche03_gestionJournaux_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 03 -- Traces, Journaux et supervision
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche04_configurationReseau_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 04 -- Configuration du réseau
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche05_configurationObjetsReseaux_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 05 -- Configuration des Objets Réseau
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche06_configurationNat_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 06-- Configuration du NAT/PAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche07_filtrage_protocolaire_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 07-- Filtrage protocolaire
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche08_filtrage_applicatifSNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 08 -- Filtrage applicatif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche09_IDS_IPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 09 - Prévention d'intrusion IDS/IPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche10_utilisateurs_authentification_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 10 -- Utilisateurs, authentification et portail captif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche11_infrastructure_cles_publiques_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 11 -- Infrastructures à clés pubiques (PKI)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche12_vpn_openvpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 12 -- VPN pour utilisateurs nomades
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stormshield/fiches/fiche13_vpn_ipsec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 13 -- VPN site à site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mise-en-place-dun-serveur-web-securise-https-avec-le-protocole-ssl-tls-avec-openssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mise en place d'un serveur web sécurisé (https) avec le Protocole SSL / TLS avec OpenSSL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mise en place d&#39;un serveur web sécurisé (https) avec le Protocole SSL / TLS avec OpenSSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#difference-entre-ssl-et-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Différence entre SSL et TLS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommandations-officielles-de-la-cnil" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommandations officielles de la CNIL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommandations officielles de la CNIL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-precautions-elementaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les précautions élémentaires
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-quil-ne-faut-pas-faire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ce qu'il ne faut pas faire
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openssl-ou-lets-encrypt" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenSSL ou Let's Encrypt
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation-dopenssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation d'OpenSSL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation d&#39;OpenSSL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration-openssl-gestion-rfc-2818" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration openSSL (gestion RFC 2818)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creation-de-la-demande-de-certificat-par-le-proprietaire-du-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création de la demande de certificat par le propriétaire du site
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Création de la demande de certificat par le propriétaire du site">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generation-de-la-cle-privee-du-serveur-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Génération de la clé privée du serveur web
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generation-dune-demande-de-certificat-pour-le-serveur-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Génération d'une demande de certificat pour le serveur web.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creation-du-certificat-de-lautorite-de-certification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création du certificat de l'autorité de certification
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traitement-de-la-demande-de-certificat-de-notre-serveur-par-lautorite-de-certification-fictive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Traitement de la demande de certificat de notre serveur par l'autorité de certification fictive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-pem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format PEM
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-du-serveur-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration du serveur WEB
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consultation-du-site-web-avec-chrome" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consultation du site web avec chrome
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-de-faux-certificats-forge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple de faux certificats forgé
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="08-protocole-tls-avec-openssl">08- Protocole TLS avec OpenSSL</h1>
+<h2 id="mise-en-place-dun-serveur-web-securise-https-avec-le-protocole-ssl-tls-avec-openssl">Mise en place d'un serveur web sécurisé (https) avec le Protocole SSL / TLS avec OpenSSL</h2>
+<h3 id="introduction">Introduction</h3>
+<p>Dans ce TP, vous allez configurer notre serveur Apache sur et activer
+l'extension <em>mod_SSL</em> permettant de sécuriser les communications avec le
+protocole Secure Socket Layer dont l'évolution a donné naissance au
+protocole TLS (Transport Layer Security).</p>
+<p>SSL signifie « Secure Socket Layer » et TLS « Transport Layer
+Security ». Les deux sont des protocoles de chiffrement pour permettre
+aux requêtes et réponses de circuler de manière <strong>confidentielle</strong> sur
+la couche de transport d'Internet. Ils agissent donc au niveau au-dessus
+de la couche 4 du modèle OSI. Leur tâche est de <strong>procéder au
+chiffrement (aussi appelé cryptage) des flux de données entre un client
+et un serveur</strong>.</p>
+<p>Dans le modèle théorique OSI on peut les imaginer fonctionnant sur la
+<strong>couche 6 : Présentation</strong>. A charge pour les développeurs des
+protocoles applicatifs classiques de gérer l'implémentation de la couche
+de sécurité associée en respectant le protocole TLS.</p>
+<p><img alt="TLS Protocol in Network
+Model" src="../../medias/cours/openssl/image1.png" /></p>
+<p>Lorsque la communication est effectuée via cette couche de transport
+chiffrée, un « s » est ajouté au nom du protocole : <em>http</em> devient
+<em>https</em>, <em>imap</em> devient <em>imaps</em>, etc. On rencontre également
+l'abréviation SSL lorsqu'on parle de certificat SSL. Ce certificat est
+nécessaire pour transférer la clé publique du serveur ainsi que son
+identité afin d'initier une communication via <em>TLS.</em> Ces certificats
+sont indispensables à la sécurité sur internet. Ils permettent
+l'authentification des machines qui contrairement aux humains ne peuvent
+s'authentifier avec des logins/password.</p>
+<p>Les certificats sont émis et signés numériquement par des <strong>tiers de
+confiance</strong> : L'autorité de certification que l'on peut assimiler à un
+notaire lors d'une transaction immobilière. Il est garant de la
+vérification de l'identité des vendeurs (mais aussi des acheteurs).</p>
+<p><img alt="" src="../../medias/cours/openssl/image2.png" /></p>
+<p>Un protocole sécurisé fonctionne sur un port différent de son homologue non sécurisé.</p>
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Port</th>
+<th>Nom</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>http</td>
+<td>80</td>
+<td>https</td>
+<td>443</td>
+</tr>
+<tr>
+<td>ftp</td>
+<td>21</td>
+<td>ftps</td>
+<td>990</td>
+</tr>
+<tr>
+<td>fmap</td>
+<td>143</td>
+<td>imaps</td>
+<td>993</td>
+</tr>
+<tr>
+<td>smtp</td>
+<td>25</td>
+<td>smtps</td>
+<td>465 (obsolète), 587</td>
+</tr>
+<tr>
+<td>pop</td>
+<td>110</td>
+<td>pops</td>
+<td>995</td>
+</tr>
+</tbody>
+</table>
+<h3 id="difference-entre-ssl-et-tls">Différence entre SSL et TLS</h3>
+<p>Le <strong>SSL</strong> a été introduit en 1995. Après la découverte d'une série de
+lourdes failles de sécurité, la version 2.0 améliorée a ensuite vu le
+jour puis la version 3.0 l'année suivante. Plus tard, l'IETF (l'Internet
+Engineering Task Force, chargée du développement d'Internet) a rejeté
+SSL 3.0 après la découverte de nouvelles failles de sécurité.</p>
+<p><strong>TLS</strong> est le <strong>protocole succédant à SSL</strong>. Il a été introduit en 1999
+en tant que version améliorée de SSL 3.0 et fut tout d'abord baptisé SSL
+3.1. La version actuelle est TLS 1.3 (depuis 2018).</p>
+<p>Dans un premier temps, l'écart entre SSL 3.0 et TLS 1.0 était mince.
+« Les différences entre ce protocole (TLS) et SSL 3.0 ne sont pas
+fondamentales, mais sont suffisamment importantes pour que TLS 1.0 et
+SSL 3.0 ne puissent pas fonctionner ensemble » (traduit librement de la
+requête <a href="https://tools.ietf.org/html/rfc2246">RFC 2246</a>). Par rapport à
+SSL 3.0, TLS 1.0 a amélioré la sécurité cryptographique et
+l'interopérabilité des applications. La version TLS 1.2 utilisée
+actuellement apporte une sécurité accrue contre les attaques des hackers
+et permet aux applications une flexibilité nettement plus grande en ce
+qui concerne la gestion des algorithmes de chiffrement utilisés (<em>cipher
+suites ou suite cryptographiques</em>).</p>
+<p>Par conséquent, le TLS actuel est <strong>plus sûr, plus flexible et plus
+efficace</strong> que l'ancien SSL. Toutefois, comme l'abréviation « SSL » est
+aujourd'hui nettement plus connue que « TLS », de nombreux fournisseurs
+de logiciels utilisent le terme SSL ou le double terme SSL/TLS alors
+qu'ils entendent généralement la version actuelle de TLS, à savoir TLS
+1.3.</p>
+<h3 id="recommandations-officielles-de-la-cnil">Recommandations officielles de la CNIL</h3>
+<p>Tout site web doit garantir son identité et la confidentialité des
+informations transmises.</p>
+<h4 id="les-precautions-elementaires">Les précautions élémentaires</h4>
+<ul>
+<li>
+<p><strong>Mettre en œuvre le protocole TLS</strong> (en remplacement de SSL) sur
+    tous les sites web, en utilisant uniquement les versions les plus
+    récentes et en vérifiant sa bonne mise en œuvre.</p>
+</li>
+<li>
+<p><strong>Rendre l'utilisation de TLS obligatoire</strong> pour toutes les pages
+    d'authentification, de formulaire ou sur lesquelles sont affichées
+    ou transmises des données à caractère personnel non publiques.</p>
+</li>
+<li>
+<p><strong>Limiter les ports de communication</strong> strictement nécessaires au
+    bon fonctionnement des applications installées. Si l'accès à un
+    serveur web passe uniquement par HTTPS, il faut autoriser uniquement
+    les flux réseau IP entrants sur cette machine sur le port 443 et
+    bloquer tous les autres ports. (Règle de filtrage dans le pare feu)</p>
+</li>
+<li>
+<p><strong>Limiter l'accès aux outils et interfaces d'administration aux
+    seules personnes habilitées.</strong> En particulier, limiter l'utilisation
+    des comptes administrateurs aux équipes en charge de l'informatique
+    et ce, uniquement pour les actions d'administration qui le
+    nécessitent.</p>
+</li>
+<li>
+<p><strong>Si des <em>cookies</em> non nécessaires au service sont utilisés,
+    recueillir le consentement</strong> de l'internaute après information de
+    celui-ci et avant le dépôt du <em>cookie</em>.</p>
+</li>
+<li>
+<p><strong>Limiter le nombre de composants mis en œuvre,</strong> en effectuer une
+    veille et les mettre à jour.</p>
+</li>
+</ul>
+<h4 id="ce-quil-ne-faut-pas-faire">Ce qu'il ne faut pas faire</h4>
+<ul>
+<li>
+<p>Faire transiter des données à caractère personnel dans une URL
+    telles que identifiants ou mots de passe.</p>
+</li>
+<li>
+<p>Utiliser des services non sécurisés (authentification en clair, flux
+    en clair, etc.).</p>
+</li>
+<li>
+<p>Utiliser les serveurs comme des postes de travail, notamment pour
+    naviguer sur des sites web, accéder à la messagerie électronique,
+    etc.</p>
+</li>
+<li>
+<p>Placer les bases de données sur un serveur directement accessible
+    depuis Internet.</p>
+</li>
+<li>
+<p>Utiliser des comptes utilisateurs génériques (c'est-à-dire partagés
+    entre plusieurs utilisateurs).</p>
+</li>
+</ul>
+<p><a href="https://www.cnil.fr/fr/securite-securiser-les-sites-web">https://www.cnil.fr/fr/securite-securiser-les-sites-web</a></p>
+<p><strong>Voilà un bon résumé de l'intérêt du cours Cybersécurité du BTS SIO</strong></p>
+<h2 id="openssl-ou-lets-encrypt">OpenSSL ou Let's Encrypt</h2>
+<p><strong>Let\'s Encrypt</strong> (abrégé <em>LE</em>) est une autorité de certification
+lancée le 3 décembre 2015 (Bêta Version Publique). Cette autorité
+fournit des certificats gratuits X.509 pour le protocole cryptographique
+TLS au moyen d\'un processus automatisé destiné à se passer du processus
+complexe actuel impliquant la création manuelle, la validation, la
+signature, l\'installation et le renouvellement des certificats pour la
+sécurisation des sites internet. En décembre 2019, Let\'s encrypt
+fournit 54,67 % des certificats TLS.</p>
+<p>Le projet vise à généraliser l\'usage de connexions sécurisées sur
+l'internet. En supprimant la nécessité de paiement, de la configuration
+du serveur web, des courriels de validation et de gestion de
+l\'expiration des certificats, le projet est fait pour réduire de
+manière significative la complexité de la mise en place et de la
+maintenance du chiffrement TLS. Sur un serveur GNU/Linux, l'exécution de
+seulement deux commandes est censée être suffisante pour paramétrer le
+chiffrement HTTPS, l'acquisition et l'installation de certificats, et
+ceci en quelques dizaines de secondes. C'est ce que propose OVH même sur
+son offre LowCoast.</p>
+<p>Let's Encrypt est <strong>LA</strong> solution à moindre coût, toutefois, comme tous
+les certificats, son utilisation repose sur l'achat d'un nom de domaine
+(que nous n'avons pas). De plus Let's Encrypt automatise le processus
+(workflow) entre le client (propriétaire d'un nom de domaine) et le
+prestataire (autorité de certification) tier de confiance. Il est
+indispensable de bien comprendre les rôles et différentes étapes de ce
+processus pour comprendre le fonctionnement de la sécurisation d'un site
+web. C'est pourquoi nous utiliserons le logiciel <strong>Openssl</strong> pour
+réaliser nos propres certificats et nous faire passer pour une autorité
+de certification.</p>
+<p>Par ailleurs, la gratuité de Let's encrypt a permis aux cybercriminels
+de monter des serveurs sécurisés ce qui empêche la détection des
+logiciels malveillants (ils sont chiffrés). Ils ont aussi profité de
+l'aubaine pour monter des campagnes de <strong>typo-squatting</strong> (achat de noms
+de domaine dont le nom est très proche de la victime ciblée) leur
+permettant de monter des copies de sites légitimes avec de véritables
+certificats reconnus comme de confiance par les navigateurs. Cela rend
+les attaques de <strong>phishing</strong> plus performantes.</p>
+<p><img alt="Le typosquatting, c\'est quoi ? | DBM
+Technologies" src="../../medias/cours/openssl/image3.png" /></p>
+<p>Le fameux cadenas vert du navigateur a d'ailleurs disparu pour cette
+raison, le cadenas n'est pas le signe que l'on peut faire confiance au
+serveur, il indique juste que la communication est chiffrée et qu'un
+certificat a bien été émis pour le nom de domaine utilisé. <strong>Cela ne
+signifie pas que le propriétaire de ce nom de domaine est un acteur de
+confiance</strong>. Il faut donc toujours rester vigilant par rapport aux URL
+quel que soit la manière d'y accéder.</p>
+<h2 id="installation-dopenssl">Installation d'OpenSSL</h2>
+<p>OpenSSL est un ensemble de bibliothèques et d'outils comprenant tout ce
+qui est nécessaire à l'utilisation de la cryptographie forte et des
+protocoles SSL (Secure Sockets Layer), TLS (Transport Layer Security)</p>
+<p>Il se découpe donc en trois parties :</p>
+<ul>
+<li>
+<p>la bibliothèque cryptographique</p>
+</li>
+<li>
+<p>la bibliothèque implémentant SSL/TLS</p>
+</li>
+<li>
+<p>le programme en ligne de commande permettant, entre autres, de
+    manipuler les certificats et de mettre en place un serveur
+    d'authentification ou une autorité de certification (CA)</p>
+</li>
+</ul>
+<p>Nous allons supposer que nous sommes notre propre autorité de
+certification. Cependant en pratique pour le commerce électronique il
+est préférable de demander un certificat à une autorité reconnue
+(<em>VeriSign</em>, etc). De fait, en étant nous-même autorité de certification
+nous risquons de ne pas avoir beaucoup de client, puisque nous ne sommes
+pas reconnus comme autorité de certification racine dans les
+navigateurs. Pour le devenir (installation de notre certificat racine)
+il faut que le client nous fasse confiance (en général juste pour une
+session).</p>
+<p><strong>A noter</strong> : openssl est aussi utilisable sous windows sans aucun
+problème puisque le projet a été développé en C. Il suffit juste de
+télécharger une version compilée pour windows 64 bits ou de le compiler
+soit même comme un grand.</p>
+<p>Pour installer openssl, rien de plus simple avec les gestionnaires de
+paquet, mais il est probable qu'il soit déjà installé. <code>apt-get install openssl</code></p>
+<p>PS : à vous de savoir quand il faut préfixer une commande par sudo
+désormais.</p>
+<ol>
+<li>Taper openssl version pour vérifier</li>
+</ol>
+<p><img alt="" src="../../medias/cours/openssl/image4.png" /></p>
+<p>A noter : Nous ne disposons pas de la toute dernière version (1.1.1i de
+décembre 2020) mais cela suffira pour notre TP.</p>
+<div class="admonition danger">
+<p class="admonition-title">Information très importante </p>
+<p>Vérification du nom de l’objet</p>
+<p>La RFC 2818, publiée en mai 2000, déconseille l’utilisation du champ Common Name (CN) dans les certificats TLS pour la vérification du nom de l’objet. Les certificats TLS sans la section SAN (Subject Alternative Name) ne peuvent plus être utilisés à des fins de vérification.
+Les clients qui utilisent déjà TLS, mais qui n’utilisent pas de SAN, doivent mettre à jour leurs certificats pour se conformer aux nouvelles exigences. Plus important encore, les clients doivent ajouter les DNS et/ou les adresses IP externes au champ SAN (Subject Alternative Names) du certificat. </p>
+<p>Les navigateurs récents implémentent cette RFC et les certificats sans champ SAN ne sont plus validés.</p>
+<p>OpenSSL ne gere malheuresement pas par défaut ce champ. Voici la solution:</p>
+</div>
+<h3 id="configuration-openssl-gestion-rfc-2818">Configuration openSSL (gestion RFC 2818)</h3>
+<p>Editer le fichier <code>/etc/ssl/openssl.cnf</code> . Ce fichier décrit le comportemant que gère openSSL. C'est dans ce fichier que nous imposerons les champs SAN (Subject Alternative Names). </p>
+<div class="admonition danger">
+<p class="admonition-title">Information très importante </p>
+<p>Malheuresement, ces champs ne peuvent être renseignées par l'utilisateur de manière interactive.
+Il faudra donc penser à faire cette manipulation pour chaque site que pour lesquel vous souhaitez générer un certificat.</p>
+</div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">[</span><span class="w"> </span>req<span class="w"> </span><span class="o">]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">distinguished_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>req_distinguished_name
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nv">req_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>v3_req<span class="w">    </span><span class="c1">#Decommenter cette ligne et trouver la section</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>...
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="o">[</span><span class="w"> </span>v3_req<span class="w"> </span><span class="o">]</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Extensions to add to a certificate request</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nv">basicConstraints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>CA:FALSE
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nv">keyUsage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>nonRepudiation,<span class="w"> </span>digitalSignature,<span class="w"> </span>keyEncipherment
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">#########    Ajouter la ligne suivante:</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nv">subjectAltName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@alt_names<span class="w">    </span><span class="c1"># le @alt_names est un pointeur vers la section ci dessous</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="o">[</span><span class="w"> </span>alt_names<span class="w"> </span><span class="o">]</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>DNS.1<span class="w"> </span><span class="o">=</span><span class="w"> </span>example.com<span class="w">             </span><span class="c1">#Saisir le nom du domaine concerné (vous remarquez qu&#39;il n&#39;y a pas l&#39;hôte associé)</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>DNS.2<span class="w"> </span><span class="o">=</span><span class="w"> </span>www.example.com<span class="w">         </span><span class="c1">#saisir le nom FQDN de votre site</span>
+</span></code></pre></div>
+<p>N'oubliez pas d'enregistrer votre fichier</p>
+<ol>
+<li>Créer un dossier de travail ( tpssl par exemple) dans la VM avec
+    l'arborescence suivante afin de s'organiser un minimum. Vérifiez
+    avec la commande tree à installer si vous ne l'avez pas déjà fait :</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>├──<span class="w"> </span>autorite
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│<span class="w">   </span>├──<span class="w"> </span>certificats
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│<span class="w">   </span>└──<span class="w"> </span>keys
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>└──<span class="w"> </span>siteweb
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├──<span class="w"> </span>certificats
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├──<span class="w"> </span>keys
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>└──<span class="w"> </span>requests_certificats
+</span></code></pre></div>
+<h2 id="creation-de-la-demande-de-certificat-par-le-proprietaire-du-site">Création de la demande de certificat par le propriétaire du site</h2>
+<p>Pour l'algorithme RSA (factorisation de deux grands nombre premiers),
+L'ANSSI recommande d'utiliser des clés RSA de 2048 bits jusqu'en 2030.
+Au-delà il faudra passer à des clés d'une taille de 3072 bits ou changer
+d'algorithme en choisissant les courbes elliptiques par exemple. Ne me
+demandez pas de détail, c'est de l'expertise mathématique très avancée.</p>
+<p>Source : <a href="https://www.keylength.com/fr/5/">https://www.keylength.com/fr/5/</a></p>
+<p><img alt="" src="../../medias/cours/openssl/image5.png" /></p>
+<h3 id="generation-de-la-cle-privee-du-serveur-web">Génération de la clé privée du serveur web</h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">RSA</label><label for="__tabbed_1_2">courbe eliptique</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>siteweb/keys/privatekey.key
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>openssl<span class="w"> </span>ecparam<span class="w"> </span>-genkey<span class="w"> </span>-name<span class="w"> </span>prime256v1<span class="w"> </span>-out<span class="w"> </span>privatekey.key
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<ol>
+<li>Vérifier le contenu du fichier généré avec la commande <code>cat</code> pour les clés RSA ou pour les <strong>courbes eliptique</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>openssl<span class="w"> </span>ec<span class="w"> </span>-in<span class="w"> </span>privatekey.key<span class="w"> </span>-text<span class="w"> </span>-noout
+</span></code></pre></div>
+<h3 id="generation-dune-demande-de-certificat-pour-le-serveur-web">Génération d'une demande de certificat pour le serveur web.</h3>
+<p>La demande de certificat est généré avec openssl via la commande
+suivante :</p>
+<div class="admonition danger">
+<p class="admonition-title">Information très importante </p>
+<p>Normallement les modifications dans le fichier de conf d'open SSL sont prise en compte mais on peut forcer leur utilisation</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">classique</label><label for="__tabbed_2_2">Forcer l'usage du fichier de conf </label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>siteweb/keys/privatekey.key<span class="w"> </span>&gt;<span class="w"> </span>siteweb/requests_certificats/demande.csr<span class="w"> </span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>siteweb/keys/privatekey.key<span class="w"> </span>&gt;<span class="w"> </span>siteweb/requests_certificats/demande.csr<span class="w"> </span>-config<span class="w"> </span>/etc/ssl/openssl.cnf
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>Le système va vous demander de saisir des champs ; remplissez-les en
+adaptant sauf le champ <strong>Common Name</strong> qui doit correspondre
+exactement au nom de domaine utilisé correspondant à la directive
+<strong>Server Name</strong> défini dans le VHost d'apache. (ex :
+<a href="http://www.lyceefulbert.fr">www.lyceefulbert.fr</a> Attention : ce domaine
+existe réellement, en choisir un autre obligatoirement)</p>
+<p>Ce n'est pas la peine de saisir d'autres "extra attributes"...</p>
+<p>Ce qui permet de générer votre <strong>CSR certificat</strong>. Celle-ci est créée
+dans le format PEM encodé en base64, PEM (<em>Privacy Enhanced Mail</em>) étant
+le format par défaut pour OpenSSL (il s'agit d'un fichier DER encodé en
+ASCII et entouré de balises de marquage).</p>
+<p>Deux choix s'offrent désormais à nous :</p>
+<ul>
+<li>
+<p>envoyer le fichier demande.csr à un organisme (le tiers de confiance
+    ou <strong>l\'autorité de certification (CA)</strong>) et ainsi obtenir le
+    certificat dûment signé par la clé privée de l'organisme (après
+    avoir payé),</p>
+</li>
+<li>
+<p><strong>ou bien signer nous-même notre certificat avec une autorité que
+    nous allons créer pour l'occasion.</strong> Elle ne sera évidement pas
+    reconnu comme étant de confiance. Cela ne peut donc pas être mis en
+    production dans le monde réel.</p>
+</li>
+</ul>
+<p>C'est ce dernier choix que nous allons voir.</p>
+<ol>
+<li>Vérifions tout de même notre demande avant de la traiter :</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-in<span class="w"> </span>siteweb/requests_certificats/demande.csr<span class="w"> </span>-noout<span class="w"> </span>-text
+</span></code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Important</p>
+<p>Verifier la présence des champs Subject Alternatives Names</p>
+</div>
+<p><img alt="" src="../../medias/cours/openssl/SAN.png" /></p>
+<h2 id="creation-du-certificat-de-lautorite-de-certification">Création du certificat de l'autorité de certification</h2>
+<p>Pour signer un certificat, vous devez devenir votre propre autorité de
+certification, cela implique donc de posséder une clé privée et un
+certificat auto-signé.</p>
+<ol>
+<li>La création de la clé privée de l\'autorité de certification se fait
+comme précédemment :</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span>-des3<span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span><span class="o">[</span>a<span class="w"> </span>vous<span class="w"> </span>de<span class="w"> </span>préciser<span class="w"> </span>le<span class="w"> </span>chemin,<span class="w"> </span>soyez<span class="w"> </span>cohérent<span class="w"> </span>SVP<span class="o">]</span><span class="w"> </span>private_ca.key
+</span></code></pre></div>
+<p>Attention ne pas mélanger le fichier correspondant à notre serveur et
+ceux correspondant à l\'autorité de certification.</p>
+<p>l\'option -des3 introduit l\'usage d\'une \"passphrase\" qui sera
+demandée à chaque utilisation de la clé privée. Ne l'oubliez surtout
+pas. Noter le ici : _______________________</p>
+<ol>
+<li>Ensuite, à partir de la clé privée, on crée un certificat x509 pour une
+durée de validité d\'un an auto-signé :</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span>-key<span class="w"> </span>private_ca.key<span class="w"> </span>&gt;<span class="w"> </span>autorite/certificats/ca.crt
+</span></code></pre></div>
+<details class="warning">
+<summary>Attention</summary>
+<p>Attention il faut mettre les bons chemins des différents fichiers !!!!
+Utilisez la tabulation pour éviter les erreurs de saisie.</p>
+</details>
+<p>Soyez imaginatif dans la saisie des informations concernant l'autorité.
+Elles doivent être différentes des informations saisies précédemment
+pour le site web. Ici vous générez votre propre autorité de
+certification qui est fictive.</p>
+<ol>
+<li>Quel passphrase est attendu ? Pourquoi ?</li>
+</ol>
+<h2 id="traitement-de-la-demande-de-certificat-de-notre-serveur-par-lautorite-de-certification-fictive">Traitement de la demande de certificat de notre serveur par l'autorité de certification fictive</h2>
+<ol>
+<li>Taper openssl x509 -help pour obtenir l'aide :</li>
+</ol>
+<p>La demande de certificat à signer est le fichier
+________________________________</p>
+<ol>
+<li>La commande qui signe la demande de certificat est la suivante :</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">classique</label><label for="__tabbed_3_2">Forcer l'usage des champs Subject Alternatives Names (SAN) </label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span><span class="o">[</span>te_plante_pas<span class="o">]</span>.csr<span class="w"> </span>-out<span class="w"> </span><span class="o">[</span>a_adapter<span class="o">]</span>.crt<span class="w"> </span>-CA<span class="w"> </span><span class="o">[</span>certif_autorite<span class="o">]</span>.crt<span class="w"> </span>-CAkey<span class="w"> </span><span class="o">[</span>privatekey_ca<span class="o">]</span>.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-CAserial<span class="w"> </span>ca.srl
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>openssl<span class="w"> </span>x509<span class="w"> </span>-req<span class="w"> </span>-in<span class="w"> </span><span class="o">[</span>te_plante_pas<span class="o">]</span>.csr<span class="w"> </span>-out<span class="w"> </span><span class="o">[</span>a_adapter<span class="o">]</span>.crt<span class="w"> </span>-CA<span class="w"> </span><span class="o">[</span>certif_autorite<span class="o">]</span>.crt<span class="w"> </span>-CAkey<span class="w"> </span><span class="o">[</span>privatekey_ca<span class="o">]</span>.key<span class="w"> </span>-CAcreateserial<span class="w"> </span>-CAserial<span class="w"> </span>ca.srl<span class="w"> </span>-extfile<span class="w"> </span>/etc/ssl/openssl.cnf<span class="w"> </span>-extensions<span class="w"> </span>v3_req
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Important</p>
+<p>Noter bien <strong>-extfile openssl.cnf -extensions v3_req</strong> a la fin de la demande de signature qui impose donc l'usage des options gérant les champs SAN. Il faut evidement le bon chemin. On peut imaginer un fichier de conf d'openssl par siteweb souhaité. A vous de vous adapter.</p>
+</div>
+<p>Le certificat signé par l'autorité de certification est le fichier
+___________________________.</p>
+<ol>
+<li>Vérifier sa présence dans le système de fichier.</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w"> </span>├──<span class="w"> </span>autorite
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w"> </span>│<span class="w">   </span>├──<span class="w"> </span>certificats
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w"> </span>│<span class="w">   </span>└──<span class="w"> </span>keys
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w"> </span>└──<span class="w"> </span>siteweb
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w"> </span>├──<span class="w"> </span>certificats
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w"> </span>├──<span class="w"> </span>keys
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w"> </span>└──<span class="w"> </span>requests_certificats
+</span></code></pre></div>
+<ol>
+<li>Vérifier son contenu avec la commande appropriée:</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">    </span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>siteweb/certificats/siteweb.crt<span class="w"> </span>-noout<span class="w"> </span>-text
+</span></code></pre></div>
+<p><img alt="" src="../../medias/cours/openssl/image6.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Atttention</p>
+<p>La copie d'écran ci dessus ne montre pas les champs SAN pourtant nécessaire avec la RFC 2018</p>
+</div>
+<h2 id="format-pem">Format PEM</h2>
+<p><a href="https://www.ssl.com/fr/faq/comment-obtenir-mes-certificats-au-format-pem/">PEM</a>
+(initialement \"<strong>P</strong>rivalité <strong>E</strong>nhanced <strong>M</strong>ail ») est le format le
+plus courant pour
+<a href="https://www.ssl.com/fr/faq/qu%27est-ce-qu%27un-certificat-x-509/">X.509</a>
+certificats, CSRs et les clés cryptographiques. Un fichier PEM est un
+fichier texte contenant un ou plusieurs éléments en codage ASCII Base64,
+chacun avec des en-têtes et pieds de page en texte brut (par exemple
+<code>-----BEGIN CERTIFICATE-----</code> et <code>-----END CERTIFICATE-----</code>). </p>
+<p>Un seul fichier PEM peut contenir un certificat
+d'entité finale, une clé privée ou plusieurs certificats formant une
+chaîne de confiance complète</p>
+<div class="admonition warning">
+<p class="admonition-title">Remarque</p>
+<p>Avec Nginx, on utilise souvent des fichiers PEM qui sont des conteneurs avec le certificat et la clé privée. Ca permet de manipuler un seul fichier au lieu de deux.</p>
+</div>
+<p>Le fichier n'est donc pas lisible par l'œil humain sans une conversion
+dans un format texte ce qui nous oblige à utiliser l'option -text pour
+afficher un contenu lisible.</p>
+<p>Pour générer un seul fichier PEM avec le certificat et la clé privée du serveur, il suffit de concatener les 2 fichier dans un troisième en utilisant cat (surtout pas nano) et l'opérateur de redirection de flux &gt; qui crééra un fichier.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>cat<span class="w"> </span>file1.crt<span class="w"> </span>file2.key<span class="w"> </span>&gt;<span class="w"> </span>file3.pem
+</span></code></pre></div>
+<h2 id="configuration-du-serveur-web">Configuration du serveur WEB</h2>
+<ol>
+<li>
+<p>Copier le fichier <code>/etc/apache2/sites-available/default-ssl.conf</code> dans
+    son dossier d'origine mais avec le nom de votre site web (celui
+    défini dans le champ Common Name). Pensez à bien conserver
+    l'extension .conf indispensable pour la commande <code>a2ensite</code>.</p>
+</li>
+<li>
+<p>Modifier le contenu du fichier correspondant à la configuration de
+    votre site web en adaptant les directives <code>DocumentRoot</code> et
+    <code>ServerName</code>.</p>
+</li>
+<li>
+<p>Modifier le chemin de <code>SSLCertificateFile</code> et
+    <code>SSLCertificatekeyfile</code> en fonction de ce que vous avez fait avec
+    le logiciel openssl.</p>
+</li>
+<li>
+<p>Activer le module SSL avec la commande <code>a2enmod ssl</code>, activer le
+    site, et redémarrer le service comme demandé.</p>
+</li>
+<li>
+<p>Penser à <strong>rediriger le port 443</strong> sur votre VM via votre
+    vagrantfile.</p>
+</li>
+<li>
+<p>Tentez d'accéder à votre site web en utilisant son nom (pensez à
+    ajuster le <strong>fichier host</strong> si nécessaire).</p>
+</li>
+<li>
+<p>Accepter le certificat et afficher ses informations</p>
+</li>
+</ol>
+<h2 id="consultation-du-site-web-avec-chrome">Consultation du site web avec chrome</h2>
+<p><img alt="" src="../../medias/cours/openssl/image7.png" /> </p>
+<p><img alt="" src="../../medias/cours/openssl/image8.png" /></p>
+<p>L'avertissement des navigateurs est normal puisque l'autorité de
+certification qui a délivré le certificat au propriétaire du site n'est
+pas une autorité digne de confiance.</p>
+<p>Pour régler le problème il suffit de récupérer le certificat de
+l'autorité (ca.crt) et l'insérer dans le magasin des autorités digne de
+confiance.</p>
+<p>Dans le monde réel ce problème n'existe pas puisqu'on utilise une
+autorité de confiance.</p>
+<p><img alt="" src="../../medias/cours/openssl/image9.png" /></p>
+<p><img alt="" src="../../medias/cours/openssl/image10.png" /></p>
+<p><img alt="" src="../../medias/cours/openssl/image11.png" /></p>
+<p><img alt="" src="../../medias/cours/openssl/image12.png" /></p>
+<p><img alt="" src="../../medias/cours/openssl/image13.png" /></p>
+<h2 id="exemple-de-faux-certificats-forge">Exemple de faux certificats forgé</h2>
+<p><img alt="" src="../../medias/cours/openssl/facebook-fake.png" /></p>
+<p><img alt="" src="../../medias/cours/openssl/certificats-fake.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Remarque</p>
+<p>Prenez bien en compte la présence du champ <strong>Subject Alernative Names</strong> nommé en français <strong>Noms alternatifs du sujet</strong> dans Firefox.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 MERY Ludovic - Lycée Fulbert - Chartres
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

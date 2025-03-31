@@ -1,0 +1,2007 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lmeryfulbert.github.io/SportLudique2024-2025/stormshield/fiches/fiche03_gestionJournaux_SNS/">
+      
+      
+        <link rel="prev" href="../fiche02_priseEnMain_SNS/">
+      
+      
+        <link rel="next" href="../fiche04_configurationReseau_SNS/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.10">
+    
+    
+      
+        <title>Fiche 03 -- Traces, Journaux et supervision - SportLudique Project 2024-2025</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fiche-03-traces-journaux-et-supervision" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="SportLudique Project 2024-2025" class="md-header__button md-logo" aria-label="SportLudique Project 2024-2025" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SportLudique Project 2024-2025
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fiche 03 -- Traces, Journaux et supervision
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="SportLudique Project 2024-2025" class="md-nav__button md-logo" aria-label="SportLudique Project 2024-2025" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    SportLudique Project 2024-2025
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Contexte
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Contexte
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/01-pr%C3%A9sentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Présentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/02-SystemeInformation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Le Système d'Information
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/03_infrastructure-actuelle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure actuelle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Objectifs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Objectifs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/Objectifs/00-Objectifs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectifs à atteindre
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/Objectifs/01-Objectif-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif stratégique 1 : Réduire les coûts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/Objectifs/02-Objectif-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 2 : Prendre en compte la dimension cartographique
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/Objectifs/03-Objectif-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 3 - Sécuriser le SI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contexte/Objectifs/04-Objectif-4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Objectif Stratégique 4 : Placer l’entreprise dans une logique de développement durable.
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cours
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Cours
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/01-git-mkdocs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-Utilisation de git et de mkdocs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/02-vlsm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-VLSM (Variable Length Subnet Mask)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/03-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-Virtualisation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/04-nat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-NAT Dynamique (Masquerade) version Cisco
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/05-hsrp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-FailOver avec le Protocole HSRP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/06-messagerie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06 - Messagerie
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/07-hmailapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    07-API Hmail
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/08-tp_openssl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    08- Protocole TLS avec OpenSSL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/09-reverse-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    09 - Reverse Proxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/10-HAProxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    10 - LoadBalacing avec HA Proxy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/11-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    11 Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/12-openvpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    12 - VPN avec OpenVPN
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/13-portail-captif/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13 Portail Captif avec Stormshield
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/14-radius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    13 Authentification - 802.1X
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/15-vpn-ipsec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    14 VPN IPSec - site à site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_16" id="__nav_3_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    DNS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_16">
+            <span class="md-nav__icon md-icon"></span>
+            DNS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/DNS/dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DNS (Domain Name System)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/DNS/unbound/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resolver Unbound
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_17" id="__nav_3_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cyber
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_17">
+            <span class="md-nav__icon md-icon"></span>
+            Cyber
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cours/cyber/nmap_cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nmap Cheatsheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Infrastructure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../infrastructure/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction sur l'infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../infrastructure/02-serveurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Liste des serveurs et services
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../infrastructure/03-infrastructure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../infrastructure/04-annexes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Annexes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../infrastructure/05-fiche-recette/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche de Recette
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Stormshield
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Stormshield
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Fiches
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            Fiches
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commandesUtilesConsole_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CheatSheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche01_initialiser_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 01 -- Initialiser un Pare-feu SNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche02_priseEnMain_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 02 -- Prise en main d'un Pare-feu SNS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Fiche 03 -- Traces, Journaux et supervision
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 03 -- Traces, Journaux et supervision
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-du-stockage-des-journaux-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration du stockage des journaux (logs)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-journaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les Journaux
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consultation-des-journaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consultation des Journaux
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche04_configurationReseau_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 04 -- Configuration du réseau
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche05_configurationObjetsReseaux_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 05 -- Configuration des Objets Réseau
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche06_configurationNat_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 06-- Configuration du NAT/PAT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche07_filtrage_protocolaire_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 07-- Filtrage protocolaire
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche08_filtrage_applicatifSNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 08 -- Filtrage applicatif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche09_IDS_IPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 09 - Prévention d'intrusion IDS/IPS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche10_utilisateurs_authentification_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 10 -- Utilisateurs, authentification et portail captif
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche11_infrastructure_cles_publiques_SNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 11 -- Infrastructures à clés pubiques (PKI)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche12_vpn_openvpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 12 -- VPN pour utilisateurs nomades
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiche13_vpn_ipsec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Fiche 13 -- VPN site à site
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-du-stockage-des-journaux-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration du stockage des journaux (logs)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-journaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Les Journaux
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consultation-des-journaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consultation des Journaux
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="fiche-03-traces-journaux-et-supervision">Fiche 03 -- Traces, Journaux et supervision</h1>
+<p>Le stockage des journaux (logs) des pare-feu Stormshield peut être
+configuré soit en local, soit vers un serveur Syslog, soit avec le
+protocole IPFIX. Les journaux, rapports d'activités et graphiques
+d'historiques sont disponibles sur les pare-feus ne disposant pas de
+stockage local des journaux. Cependant, ils sont limités à 5 rapports et
+graphiques au total avec un historique maximal de 7 jours.</p>
+<h2 id="configuration-du-stockage-des-journaux-logs">Configuration du stockage des journaux (logs)</h2>
+<p>Le stockage en local n'est activé par défaut que sur les machines
+virtuelles, il faut donc le cas échéant le configurer.</p>
+<ul>
+<li>Sélectionner dans le menu à gauche <strong>Configuration / Notifications /
+    Traces -- Syslog - IPFIX</strong> puis dans l'onglet <strong>/ Traces -- Syslog
+    -- IPFIX</strong> choisir <strong>Stockage local</strong>. </li>
+</ul>
+<p>Sur <strong>une machine virtuelle</strong>, celui-ci est activé par défaut et occupe
+un <strong>espace disque de 6Go</strong> :</p>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/1000000100000282000000A7E0568EFCA0EE8753.png" /></p>
+<p><strong>Sur un boîtier physique,</strong> le stockage local des logs n'est pas activé
+par défaut.</p>
+<ul>
+<li>Insérer une carte SD dans l'emplacement en façade du pare-feu SNS,
+    lorsque le pare-feu est éteint, elle sera automatiquement détectée
+    lors du démarrage (<em>sauf si vous n'avez pas installé la licence</em>) et
+    le système vous proposera de la formater avant utilisation.</li>
+</ul>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000010000025D0000009A181376370298DCFD.png" /></p>
+<p>La zone <strong>Support de stockage</strong> permet de sélectionner le support de
+stockage local « disque dur interne » ou « carte mémoire SD ». Au
+besoin :</p>
+<ul>
+<li>cocher le bouton
+    <strong>ON ;</strong><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000000000059E000001945020079C69A930E2.png" /></li>
+<li>dans la zone <strong>Support de stockage</strong> sélectionner dans la liste
+    <strong>Périphérique</strong> la carte SD comme support de stockage.</li>
+</ul>
+<p>Le système vous propose de la formater avant utilisation.</p>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/1000000000000269000000C2DBB284ACF9F3D8DD.png" /></p>
+<ul>
+<li>Cliquer <strong>Formater Carte SD</strong>. Cette opération prend quelques secondes.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Attention</p>
+<p>Afin de stocker les journaux du pare-feu SNS sur un support externe
+(carte SD) vous devez d'abord enregistrer la licence, le message
+d'erreur qui apparaît alors n'est pas explicite, le système fait comme
+s'il ne pouvait détecter la carte SD.</p>
+</div>
+<p>Une fois le support formaté, la liste des journaux pré-configurés est
+activée avec pour chaque journal un espace dédié. Vous pouvez désactiver
+certains journaux si vous le souhaitez.</p>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/10000000000005990000030C4F76B3E6BA831DC1.png" /></p>
+<ul>
+<li>Le cas échéant, cliquer <strong>Appliquer</strong> puis <strong>Sauvegarder</strong> pour
+    activer le stockage local des journaux.</li>
+</ul>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/1000000000000326000000C1CE65C3D1DD468E70.png" /></p>
+<ul>
+<li>Le cas échéant, cliquer <strong>Conserver les rapports d'activité
+    désactivés.</strong></li>
+</ul>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/10000001000001BC00000108DC618C3DEEE29370.png" /></p>
+<p>La zone <strong>Configuration de l'espace réservé pour les traces</strong> permet
+d'activer ou non l'écriture des traces pour une famille donnée en
+double-cliquant dans la colonne <strong>État</strong> correspondante. Elle permet
+également de configurer le pourcentage de l'espace disque réservé pour
+la famille de trace dans la partie <strong>Pourcentage</strong>. Il est important de
+noter que le total des pourcentages ne doit pas dépasser 100 %. La
+taille réelle de l'espace disque réservé à une famille de traces est
+indiquée dans la partie <strong>Quota d'espace disque.</strong></p>
+<p>Les entrées de journal anciennes sont écrasées par les nouvelles entrées
+(rotation) : il s'agit du comportement par défaut. Pour une
+journalisation sans rotation, il faut un stockage externe (serveur
+SYSLOG par exemple).</p>
+<p>L'activation des rapports s'effectue depuis le menu <strong>Configuration /
+Notifications / Configuration des rapports.</strong></p>
+<ul>
+<li>Cliquer <strong>Configuration / Notifications / Configuration des
+    rapports</strong> et activez l'option <strong>Rapports statiques</strong>, ensuite
+    sélectionnez les rapports souhaités dans le panneau <strong>Liste des
+    rapports</strong>.</li>
+</ul>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000010000026F000001448E028CAA7F5E34B2.png" /></p>
+<p>Par défaut le rapport sur le <strong>Top des protocoles</strong> par volume est
+activé si vous activez les rapports.</p>
+<p>L'onglet <strong>Liste des graphiques historiques</strong> permet de visualiser et
+modifier les graphiques activés par défaut.</p>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/10000001000001BD0000009482F4E07BF5226A81.png" /></p>
+<h2 id="les-journaux">Les Journaux</h2>
+<p>Les fichiers journaux sont organisés en plusieurs catégories dont les
+plus importantes sont listées ci-dessous.</p>
+<ul>
+<li><strong>Administration :</strong> regroupe les évènements liés à l'administration
+    du pare-feu SNS. Ainsi, toutes les modifications de configuration
+    effectuées sur le pare-feu sont journalisées.</li>
+<li><strong>Authentification :</strong> regroupe les évènements liés à
+    l'authentification des utilisateurs sur le pare-feu SNS.</li>
+<li><strong>Connexions réseaux : </strong>regroupe les évènements liés aux connexions
+    TCP/UDP traversant ou à destination du pare-feu SNS non traitées par
+    un plugin applicatif.</li>
+<li><strong>Évènements systèmes : </strong>regroupe les évènements liés directement
+    au système: arrêt/démarrage du pare-feu SNS, erreurs système,
+    allumage/extinction d'une interface, haute disponibilité, mises à
+    jour Active Update, etc.</li>
+<li><strong>Alarmes :</strong> regroupe les évènements liés aux fonctions de
+    prévention d'intrusions (IPS) et les évènements tracés avec le
+    niveau alarme mineure ou majeure de la politique de filtrage.</li>
+<li><strong>Proxy HTTP :</strong> regroupe les évènements liés aux connexions
+    traversant le proxy HTTP.</li>
+<li><strong>Connexions applicatives (plugin) :</strong> regroupe les évènements liés
+    aux connexions traitées par un plugin applicatif (HTTP, FTP, SIP,
+    etc).</li>
+<li><strong>Politique de filtrage :</strong> regroupe les évènements liés aux règles
+    de filtrages et/ou de NAT, lorsque la journalisation des règles est
+    en mode verbeux.</li>
+</ul>
+<p>Dans le contexte <strong>Monitoring</strong>, le menu <strong>LOGS - JOURNAUX D'AUDIT</strong>
+permet de visualiser les journaux et traces sauvegardés en local sur le
+pare-feu SNS, regroupés par famille de journaux : trafic réseau,
+alarmes, web, etc.</p>
+<p>Exemple : la famille <strong>Trafic réseau </strong>concatène les journaux Connexions
+réseaux, filtrage, Proxy FTP, connexions applicatives, Proxy POP3, Proxy
+SMTP, Proxy SSL, Proxy HTTP, VPN SSL.</p>
+<p>Les traces sont affichées par ordre anti chronologique (la trace la plus
+récente est en tête de liste).</p>
+<div class="admonition info">
+<p class="admonition-title">Important</p>
+<p>Pour appliquer le règlement général sur la protection des données
+(RGPD), l'accès aux logs des pare-feus SNS est restreint par défaut pour
+tous les administrateurs.</p>
+</div>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000000000027C000000F33FD7EAA8354E6553.png" /></p>
+<p>Le super administrateur « admin », ainsi que les
+administrateurs disposant du droit « Accès aux données personnelles »
+peuvent accéder aux logs complets en cliquant simplement sur <strong>Obtenir
+le droit d'accès aux données personnelles (logs)</strong>. Cette manipulation
+ajoute une entrée dans les journaux qui permet de la tracer.</p>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000000000018600000074DDF44A3F67E4D562.png" /></p>
+<h2 id="consultation-des-journaux">Consultation des Journaux</h2>
+<ul>
+<li>Cliquer <strong>Monitoring </strong>puis <strong>LOGS - JOURNAUX D'AUDIT </strong>puis, par
+    exemple, <strong>Trafic réseau</strong>.</li>
+</ul>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000010000025D0000009A6A6F3E8A2DFEC687.png" /></p>
+<p>Pour voir l'ensemble des données relatives à une trace, mettez la ligne
+désirée en surbrillance et cliquez sur la flèche en haut à droite
+<strong>Détails de la ligne de log</strong>.</p>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000010000021C0000011EF4BA2F9EFE73D397.png" /></p>
+<p>L'affichage des journaux peut être restreint à une plage temporelle
+prédéfinie (dernière heure, aujourd'hui, hier, semaine dernière ou mois
+dernier) ou personnalisée.</p>
+<p>En cliquant sur un type de trace, une fenêtre s'affiche pour offrir des
+raccourcis vers plusieurs fonctionnalités qui diffèrent suivant le type
+de trace affichée : afficher de l'aide, ajouter la machine à la base
+objet, filtrer les traces en se basant sur la valeur, voir la ligne
+complète de la trace, etc.</p>
+<p>Pour <strong>filtrer les traces</strong>, une barre de recherche simple permet de
+rechercher une chaîne de caractères dans toutes les colonnes de toutes
+les traces, voir l'exemple ci-dessous pour <strong>icmp</strong>.</p>
+<p><img alt="" src="../../../medias/stormshield/fiches/fiche3_gestionJournaux_SNS/Pictures/100000010000022400000162B656DBCD699443C5.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024-2025 MERY Ludovic - Lycée Fulbert - Chartres
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
